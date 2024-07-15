@@ -12,7 +12,8 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                sh 'bashScripts/test.sh'
+                sh 'cd webapp'
+                sh 'npm test'
             }
         }
 
