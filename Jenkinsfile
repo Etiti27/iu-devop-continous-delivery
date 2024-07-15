@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                sh 'cd webapp'
+                cd webapp
                 npm test
                 
               
