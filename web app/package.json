@@ -1,0 +1,19 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "addition and substraction",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+    
+  },
+  "author": "Ibe, Christopher Obinna",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
