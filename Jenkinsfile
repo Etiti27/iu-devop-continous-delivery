@@ -24,11 +24,7 @@ pipeline {
                 // Build the project
                 echo "Building"
             }
-            expression {
-                when {
-                    currentBuild.result==null || currentBuild.result =="SUCCESS"
-                }
-            }
+           
         }
 
     
