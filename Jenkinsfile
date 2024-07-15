@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                chmod 777 bashScripts/test.sh
+                chmod 777 /bashScripts/test.sh
                 ./bashScripts/test.sh
               
             }
