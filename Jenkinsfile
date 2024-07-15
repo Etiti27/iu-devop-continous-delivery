@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                ./bashScripts/test.sh
+                sh "/bashScripts/test.sh"
             }
         }
 
