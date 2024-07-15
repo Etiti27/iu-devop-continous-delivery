@@ -13,7 +13,7 @@ pipeline {
                 // Run tests
                 echo "Testing"
                 sh 'cd webapp'
-                sh 'npm test'
+                npm test
                 
               
             }
