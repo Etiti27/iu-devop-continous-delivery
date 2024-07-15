@@ -12,6 +12,7 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
+                echo "$currentBuild.result"
             }
         }
 
