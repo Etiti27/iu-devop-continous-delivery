@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                echo "$currentBuild.result"
+                ./bashScripts/test.sh
             }
         }
 
@@ -20,6 +20,11 @@ pipeline {
             steps {
                 // Build the project
                 echo "Building"
+            }
+            expression {
+                when {
+                    currentBuild.result==null || currentBuild.result =="SUCCESS"
+                }
             }
         }
 

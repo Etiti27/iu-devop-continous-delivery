@@ -1,4 +1,4 @@
-/web\ app/node_modules/
+/webapp/node_modules/
 package-lock.json
 .vscode/
 .env
