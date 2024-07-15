@@ -12,8 +12,9 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                sh 'chmod 777 /bashScripts/test.sh'
-                sh '/bashScripts/test.sh'
+                sh 'chmod +x test.sh'
+                sh 'test.sh'
+                echo currentBuild.result
               
             }
         }
