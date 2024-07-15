@@ -12,8 +12,7 @@ pipeline {
             steps {
                 // Run tests
                 echo "Testing"
-                chmod +x test.sh
-                ./test.sh
+                sh 'npm webapp/test'
                 
               
             }
