@@ -11,7 +11,7 @@ pipeline {
                 // Build the project
                 
                 echo 'Building'
-                // sh 'cd build'
+                sh 'cd build'
                 sh 'ansible-playbook -i inventory ~/dockerbuild-playbook.yml'
             }
            
