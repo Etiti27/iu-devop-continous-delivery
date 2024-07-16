@@ -1,8 +1,8 @@
 ---
 # tasks file for DockerBuild
-    - name: Run Docker container
-      shell: |
-        apt update -y install
+    # - name: Run Docker container
+      # shell: |
+        # apt update -y install
  
     - name: Install Docker
       apt:
@@ -16,16 +16,8 @@
         state: present
       become: true
 
-    - name: Install pip
-      apt:
-        name: python3-pip
-        state: present
-      become: true
+   
 
-    - name: Install Docker module for Ansible
-      pip:
-        name: docker
-      become: true
 
     - name: Ensure Docker service is running
       service:
