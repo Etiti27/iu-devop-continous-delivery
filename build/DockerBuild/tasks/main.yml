@@ -29,7 +29,7 @@
     # - name: Build Docker image
     - name: Build Docker image
       docker_image:
-        path: "../../../Dockerfile"  # Directory containing the Dockerfile
+        path: "./Dockerfile"  # Directory containing the Dockerfile
         name: "{{docker_image_name}}"            # Name of the Docker image
         tag: latest             # Optional: specify a tag
         state: present  
