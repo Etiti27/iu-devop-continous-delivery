@@ -1,5 +1,5 @@
 ---
 # vars file for DockerBuild
-docker_build_context : '~/Dockerfile'
+docker_build_context : '/Dockerfile'
 docker_image_name: 'my-iu-web-app'
 docker_image_tag: 'latest'
