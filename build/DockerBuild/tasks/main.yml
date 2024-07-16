@@ -3,6 +3,12 @@
     # - name: Run Docker container
       # shell: |
         # apt update -y install
+# /Users/obinna/Desktop/IU/DEVOP/build
+    - name: Copy a configuration file
+      copy:
+        src: /Users/obinna/Desktop/IU/DEVOP
+        dest: /etc/myapp/
+        
  
     - name: Install Docker
       apt:
