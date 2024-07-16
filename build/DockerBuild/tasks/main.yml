@@ -26,14 +26,25 @@
         enabled: yes
       become: true
 
+    # - name: Build Docker image
     - name: Build Docker image
-      community.docker.docker_image:
-        path: "{{ docker_build_context }}"
-        name: "{{ docker_image_name }}"
-        tag: "{{ docker_image_tag }}"
-      become: true
+      docker_image:
+        path: "../../../Dockerfile"  # Directory containing the Dockerfile
+        name: "{{docker_image_name}}"            # Name of the Docker image
+        tag: latest             # Optional: specify a tag
+        state: present  
+
+      # community.docker.docker_image:
+        # path: "{{ docker_build_context }}"
+        # name: "{{ docker_image_name }}"
+        # tag: "{{ docker_image_tag }}"
+      # become: true
+    # -name: Build Docker
+    # shell:
+      # docker build -t myapp:latest -f /path/to/Dockerfile /path/to/context
+
 
       
     - name: Run Docker container
       shell: |
-        docker run -d --name my_app_container -p 3000:3000 {{ docker_image_name }}:{{ docker_image_tag }}
+        docker run -d --name {{docker_image_name}} -p 3000:3000 {{ docker_image_name }}:{{ docker_image_tag }}
