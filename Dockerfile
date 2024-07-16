@@ -5,7 +5,7 @@ FROM node:14
 WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the app directory
-COPY webapp/package*.json ./
+COPY /Users/obinna/Desktop/IU/DEVOP/webapp/package*.json ./
 
 # Install dependencies
 RUN npm install
