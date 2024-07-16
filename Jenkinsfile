@@ -12,7 +12,7 @@ pipeline {
                 
                 echo 'Building'
                 // sh 'cd build'
-                sh 'ansible-playbook -i inventory.ini build/dockerbuild-playbook.yml'
+                sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml'
                 // build/dockerbuild-playbook.yml
             }
            
