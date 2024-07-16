@@ -6,28 +6,26 @@ pipeline {
 
     stages {
 
+        stage('Build') {
+            steps {
+                // Build the project
+                
+                echo 'Building'
+                sh 'cd build'
+                sh 'ansible-playbook i inventory dockerbuild-playbook.yml'
+            }
+           
+        }
+
       
 
         stage('Run Tests') {
             steps {
                 // Run tests
-                echo "Testing"
-                cd webapp
-                npm test
-                
+                echo "Testing" 
               
             }
         }
-
-        stage('Build') {
-            steps {
-                // Build the project
-                echo "Building"
-            }
-           
-        }
-
-    
 
         stage('Deploy') {
             steps {

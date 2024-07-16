@@ -1,0 +1,47 @@
+---
+# tasks file for DockerBuild
+    - name: Run Docker container
+      shell: |
+        apt update -y install
+ 
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      become: true
+
+    - name: Install Ansible
+      apt:
+        name: ansible
+        state: present
+      become: true
+
+    - name: Install pip
+      apt:
+        name: python3-pip
+        state: present
+      become: true
+
+    - name: Install Docker module for Ansible
+      pip:
+        name: docker
+      become: true
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: true
+
+    - name: Build Docker image
+      community.docker.docker_image:
+        path: "{{ docker_build_context }}"
+        name: "{{ docker_image_name }}"
+        tag: "{{ docker_image_tag }}"
+      become: true
+
+      
+    - name: Run Docker container
+      shell: |
+        docker run -d --name my_app_container -p 3000:3000 {{ docker_image_name }}:{{ docker_image_tag }}
