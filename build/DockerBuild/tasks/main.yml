@@ -32,7 +32,7 @@
     - name: Copy Dockerfile to remote host
       copy:
         src: /Users/obinna/Desktop/IU/DEVOP/Dockerfile
-        dest: /home/ubuntu/webapp/Dockerfile
+        dest: /home/ubuntu/Dockerfile
     # - name: Build Docker image
     - name: Build Docker image
       docker_image:
