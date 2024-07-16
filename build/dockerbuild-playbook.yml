@@ -2,6 +2,14 @@
 - name: Build Docker Image
   hosts: all
   become: yes
+  tasks:
+    - name: Copy a configuration file
+      copy:
+        src: ../../.
+        dest: /etc/myapp/
+        owner: root
+        group: root
+        mode: '0644'
   roles:
     - DockerBuild
  
