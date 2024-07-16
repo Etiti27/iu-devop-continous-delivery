@@ -5,10 +5,11 @@ FROM node:14
 WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the app directory
-COPY package*.json ./
+COPY webapp/package*.json ./
 
 # Install dependencies
 RUN npm install
+# RUN ansible-galaxy collection install community.docker
 
 # Copy the rest of the application code to the app directory
 COPY . .
