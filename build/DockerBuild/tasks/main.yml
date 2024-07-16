@@ -32,23 +32,21 @@
     - name: Copy Dockerfile to remote host
       copy:
         src: /Users/obinna/Desktop/IU/DEVOP/Dockerfile
-        dest: /home/ubuntu/Dockerfile
+        dest: /home/ubuntu/webapp/Dockerfile
     # - name: Build Docker image
-    # - name: Build Docker image
-      # docker_image:
-        # path: "../../../"  # Directory containing the Dockerfile
-        # name: "{{docker_image_name}}"            # Name of the Docker image
-        # tag: latest             # Optional: specify a tag
-        # state: present  
+    - name: Build Docker image
+      docker_image:
+        path: "/home/ubuntu/webapp"  # Directory containing the Dockerfile
+        name: "{{docker_image_name}}"            # Name of the Docker image
+        tag: "{{docker_image_tag}}"             # Optional: specify a tag
+        state: present  
 
       # community.docker.docker_image:
         # path: "{{ docker_build_context }}"
         # name: "{{ docker_image_name }}"
         # tag: "{{ docker_image_tag }}"
       # become: true
-    - name: Build Docker
-      shell: |
-       docker build -t {{docker_image_name}}:latest .
+    
 
 
       
