@@ -71,12 +71,17 @@
     
 
         # - name: Build Docker image
+   
+
     - name: Build Docker image
-      docker_image:
-        path: /home/ubuntu/webapp/ # Directory containing the Dockerfile
-        name: mycicd          # Name of the Docker image
-        tag: latest            # Optional: specify a tag
-        state: present 
+      community.docker.docker_image:
+       build:
+        context: /home/ubuntu/webapp/       # Directory containing the Dockerfile and any necessary files
+        dockerfile: .              # Specify the Dockerfile if it's not named 'Dockerfile'
+       name: mycicd                          # Name of the Docker image
+       tag: latest                           # Optional: specify a tag
+       state: present
+
     
 
 
