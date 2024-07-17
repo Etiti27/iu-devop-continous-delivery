@@ -58,6 +58,18 @@
         msg: "Dockerfile not found!"
       when: not dockerfile_status.stat.exists
 
+
+    - name: build docker image
+      docker_image:
+       name: iucicd
+       source: build  # <-- add
+       build:         # <-- add
+        path: /home/ubuntu/webapp/  # <-- move under build:
+      force: yes
+      tags: latest
+   
+
+    
    
     # - name: Build Docker image
       # community.docker.docker_image:
@@ -73,15 +85,16 @@
         # - name: Build Docker image
    
 
-    - name: Build Docker image
-      community.docker.docker_image:
-       build:
-        context: /home/ubuntu/webapp/       # Directory containing the Dockerfile and any necessary files
-        dockerfile: .              # Specify the Dockerfile if it's not named 'Dockerfile'
-       name: mycicd                          # Name of the Docker image
-       tag: latest                           # Optional: specify a tag
-       state: present
+    # - name: Build Docker image
+      # community.docker.docker_image:
+      #  build:
+        # context: /home/ubuntu/webapp/       # Directory containing the Dockerfile and any necessary files
+        # dockerfile: .              # Specify the Dockerfile if it's not named 'Dockerfile'
+      #  name: mycicd                          # Name of the Docker image
+      #  tag: latest                           # Optional: specify a tag
+      #  state: present
 
+ 
     
 
 
