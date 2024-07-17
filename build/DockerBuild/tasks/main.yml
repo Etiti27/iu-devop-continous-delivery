@@ -34,10 +34,17 @@
         src: /Users/obinna/Desktop/IU/DEVOP/Dockerfile
         dest: /home/ubuntu/Dockerfile
 
-    - name: Copy webapp to remote host
-      copy:
+
+
+    - name: Copy large file to remote host
+      synchronize:
         src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        dest: /home/ubuntu/webapp2
+        dest:  /home/ubuntu/webpp40
+        rsync_opts:
+          - "--compress"
+          - "--progress"
+
+    
     # - name: Build Docker image
     - name: Build Docker image
       docker_image:
