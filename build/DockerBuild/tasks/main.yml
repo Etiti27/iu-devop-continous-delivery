@@ -40,7 +40,7 @@
     - name: Copy large file to remote host
       synchronize:
         src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        dest:  /home/ubuntu/webpp40
+        dest:  /home/ubuntu/
         rsync_opts:
           - "--compress"
           - "--progress"
