@@ -68,10 +68,10 @@
     - name: Build Docker image
       community.docker.docker_image:
        build:
-        context: /home/ubuntu/webapp/      # Directory containing the Dockerfile
-        dockerfile: Dockerfile               # Name of the Dockerfile (optional if named 'Dockerfile')
-       name: "{{ docker_image_name }}"         # Name of the Docker image
-       tag: "{{ docker_image_tag }}"           # Optional: specify a tag
+        context: /home/ubuntu/webapp/       # Directory containing the Dockerfile
+        dockerfile: Dockerfile                # Name of the Dockerfile (if not named 'Dockerfile')
+       name: "{{ docker_image_name }}"          # Name of the Docker image
+       tag: "{{ docker_image_tag }}"            # Optional: specify a tag
        state: present
 
 
