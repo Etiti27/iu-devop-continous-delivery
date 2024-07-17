@@ -35,26 +35,15 @@
         dest: /home/ubuntu/Dockerfile
 
 
-    - name: Ensure community.general collection is installed
-      ansible.builtin.ansible_galaxy:
-        command: collection install
-        name: community.general
+  
 
     - name: Copy large file to remote host
-      community.general.rsync:
+      synchronize:
         src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        dest: /home/ubuntu/webpp41
-        compress: yes
+        dest:  /home/ubuntu/webpp40
         rsync_opts:
+          - "--compress"
           - "--progress"
-
-    # - name: Copy large file to remote host
-      # synchronize:
-        # src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        # dest:  /home/ubuntu/webpp40
-        # rsync_opts:
-          # - "--compress"
-          # - "--progress"
 
     
     # - name: Build Docker image
