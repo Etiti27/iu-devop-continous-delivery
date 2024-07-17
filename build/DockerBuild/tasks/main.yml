@@ -34,15 +34,21 @@
         src: /Users/obinna/Desktop/IU/DEVOP/Dockerfile
         dest: /home/ubuntu/Dockerfile
 
-
-
     - name: Copy large file to remote host
-      synchronize:
+      community.general.rsync:
         src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        dest:  /home/ubuntu/webpp40
+        dest: /home/ubuntu/webpp41
+        compress: yes
         rsync_opts:
-          - "--compress"
           - "--progress"
+
+    # - name: Copy large file to remote host
+      # synchronize:
+        # src: /Users/obinna/Desktop/IU/DEVOP/webapp
+        # dest:  /home/ubuntu/webpp40
+        # rsync_opts:
+          # - "--compress"
+          # - "--progress"
 
     
     # - name: Build Docker image
