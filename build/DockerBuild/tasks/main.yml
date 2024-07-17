@@ -65,15 +65,18 @@
       when: not dockerfile_status.stat.exists
 
    
-    - name: Build Docker image
-      community.docker.docker_image:
-       build:
-        context: /home/ubuntu/webapp/       # Directory containing the Dockerfile
-        dockerfile: Dockerfile                # Name of the Dockerfile (if not named 'Dockerfile')
-       name: web-app         # Name of the Docker image
-       tag: latest            # Optional: specify a tag
-       state: present
+    # - name: Build Docker image
+      # community.docker.docker_image:
+      #  build:
+        # context: /home/ubuntu/webapp/       # Directory containing the Dockerfile
+        # dockerfile: Dockerfile                # Name of the Dockerfile (if not named 'Dockerfile')
+      #  name: web-app         # Name of the Docker image
+      #  tag: latest            # Optional: specify a tag
+      #  state: present
 
+    - name: Run Docker container
+      shell: |
+        docker build -t web-app:latest -f /home/ubuntu/webapp/ 
 
       # community.docker.docker_image:
         # path: "{{ docker_build_context }}"
