@@ -64,6 +64,13 @@
         msg: "Dockerfile not found!"
       when: not dockerfile_status.stat.exists
 
+    - name: Build Docker image
+      docker_image:
+        path:  /home/ubuntu/webapp/Dockerfile  # Directory containing the Dockerfile
+        name: "{{docker_image_name}}"            # Name of the Docker image
+        tag: "{{docker_image_tag}}"             # Optional: specify a tag
+        state: present 
+
     # - name: Build Docker image
       # ansible.builtin.shell: |
         # docker build -t my_docker_image:latest /path/to/your/
