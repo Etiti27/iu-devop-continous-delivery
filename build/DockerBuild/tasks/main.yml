@@ -74,19 +74,23 @@
       #  tag: latest            # Optional: specify a tag
       #  state: present
 
-    - name: Run Docker container
-      shell: |
-        docker build -t web-app:latest -f /home/ubuntu/webapp/ 
+    - name: Ensure community.docker collection is installed
+      ansible.builtin.ansible_galaxy:
+        command: collection install
+        name: community.docker
 
-      # community.docker.docker_image:
-        # path: "{{ docker_build_context }}"
-        # name: "{{ docker_image_name }}"
-        # tag: "{{ docker_image_tag }}"
-      # become: true
+    - name: Build Docker image
+      community.docker.docker_image:
+        build:
+          context: /home/ubuntu/webapp/       # Directory containing the Dockerfile
+          dockerfile: Dockerfile               # Specify if your Dockerfile has a different name
+        name: mycicd         # Name of the Docker image
+        tag: latest         # Optional: specify a tag
+        state: present
     
 
 
       
-    - name: Run Docker container
-      shell: |
-        docker run -d --name {{docker_image_name}} -p 3000:3000 {{ docker_image_name }}:{{ docker_image_tag }}
+    # - name: Run Docker container
+      # shell: |
+        # docker run -d --name {{docker_image_name}} -p 3000:3000 {{ docker_image_name }}:{{ docker_image_tag }}
