@@ -7,8 +7,8 @@ yarn-debug.log
 yarn-error.log
 
 # Docker-related files
-Dockerfile
-.dockerignore
+# Dockerfile
+# .dockerignore
 
 # Git-related files and directories
 .git
