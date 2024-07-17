@@ -66,9 +66,11 @@
 
    
     - name: Build Docker image
-      ansible.builtin.shell: |
-        docker build -t myiucicd:latest {{docker_build_context}}
-      when: dockerfile_status.stat.exists
+      community.docker.docker_image:
+       path: /home/ubuntu/webapp/     # Correctly specify the directory containing the Dockerfile
+       name: "{{ docker_image_name }}"
+       tag: "{{ docker_image_tag }}"
+       state: present
 
 
       # community.docker.docker_image:
