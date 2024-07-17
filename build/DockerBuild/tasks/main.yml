@@ -56,7 +56,7 @@
 
     - name: Check if Dockerfile exists
       ansible.builtin.stat:
-        path: /home/ubuntu/webapp/Dockerfile
+        path: "{{docker_build_context}}"
       register: dockerfile_status
 
     - name: Fail if Dockerfile does not exist
@@ -64,17 +64,11 @@
         msg: "Dockerfile not found!"
       when: not dockerfile_status.stat.exists
 
+   
     - name: Build Docker image
-      docker_image:
-        path:  /home/ubuntu/webapp/Dockerfile  # Directory containing the Dockerfile
-        name: "{{docker_image_name}}"            # Name of the Docker image
-        tag: "{{docker_image_tag}}"             # Optional: specify a tag
-        state: present 
-
-    # - name: Build Docker image
-      # ansible.builtin.shell: |
-        # docker build -t my_docker_image:latest /path/to/your/
-      # when: dockerfile_status.stat.exists
+      ansible.builtin.shell: |
+        docker build -t myiucicd:latest {{docker_build_context}}
+      when: dockerfile_status.stat.exists
 
 
       # community.docker.docker_image:
