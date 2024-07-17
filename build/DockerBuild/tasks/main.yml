@@ -47,7 +47,7 @@
 
     
     # - name: Build Docker image
-    # - name: Build Docker image
+    - name: Build Docker image
       # docker_image:
         # path: "/home/ubuntu/webapp/"  # Directory containing the Dockerfile
         # name: "{{docker_image_name}}"            # Name of the Docker image
@@ -56,7 +56,7 @@
 
     - name: Check if Dockerfile exists
       ansible.builtin.stat:
-        path: "~/Dockerfile"
+        path: /home/ubuntu/webapp/Dockerfile
       register: dockerfile_status
 
     - name: Fail if Dockerfile does not exist
