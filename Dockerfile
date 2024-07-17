@@ -5,17 +5,17 @@ FROM node:14
 WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the app directory
-COPY /Users/obinna/Desktop/IU/DEVOP/webapp/package*.json ./
+COPY webapp/package*.json ./
 
 # Install dependencies
 RUN npm install
 # RUN ansible-galaxy collection install community.docker
 
 # Copy the rest of the application code to the app directory
-COPY . .
+COPY webapp/* .
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Define the command to run the application
-CMD ["node", "index.js"]
+CMD ["node", "webapp/index.js"]
