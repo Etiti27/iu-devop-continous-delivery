@@ -65,7 +65,7 @@
         source: build  # <-- add
         build:         # <-- add
           path: /home/ubuntu/webapp/  # <-- move under build:
-        tags: latest
+        tag: latest
    
 
     
