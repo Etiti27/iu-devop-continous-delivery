@@ -46,13 +46,7 @@
           - "--progress"
 
     
-    # - name: Build Docker image
-    # - name: Build Docker image
-      # docker_image:
-        # path: "/home/ubuntu/webapp/"  # Directory containing the Dockerfile
-        # name: "{{docker_image_name}}"            # Name of the Docker image
-        # tag: "{{docker_image_tag}}"             # Optional: specify a tag
-        # state: present 
+    
 
     - name: Check if Dockerfile exists
       ansible.builtin.stat:
@@ -74,19 +68,15 @@
       #  tag: latest            # Optional: specify a tag
       #  state: present
 
-    - name: Ensure community.docker collection is installed
-      ansible.builtin.ansible_galaxy:
-        command: collection install
-        name: community.docker
+    
 
+        # - name: Build Docker image
     - name: Build Docker image
-      community.docker.docker_image:
-        build:
-          context: /home/ubuntu/webapp/       # Directory containing the Dockerfile
-          dockerfile: Dockerfile               # Specify if your Dockerfile has a different name
-        name: mycicd         # Name of the Docker image
-        tag: latest         # Optional: specify a tag
-        state: present
+      docker_image:
+        path: /home/ubuntu/webapp/ # Directory containing the Dockerfile
+        name: mycicd          # Name of the Docker image
+        tag: latest            # Optional: specify a tag
+        state: present 
     
 
 
