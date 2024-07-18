@@ -3,7 +3,7 @@
   hosts: local
   # Example path to Python 3 interpreter
   tasks:
-  become: yes
+  # become: yes
   roles:
     - Deploy
 
