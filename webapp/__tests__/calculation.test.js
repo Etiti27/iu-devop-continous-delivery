@@ -1,4 +1,5 @@
-const calculate = require('./Calculation');
+const calculate = require('../Calculation');
+// import calculate from '../Calculation';
 // adition test
 test('adds 1 + 2 to equal 3', () => {
   expect(calculate.addition(1, 2)).toBe(3);
