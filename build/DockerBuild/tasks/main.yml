@@ -10,7 +10,9 @@
       ansible.builtin.fail:
         msg: "Dockerfile not found!"
       when: not dockerfile_status.stat.exists
-
+    
+    - name: install pip
+      command: pip install influxdb
 
     - name: build docker image
       docker_image:
