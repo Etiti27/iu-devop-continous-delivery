@@ -1,7 +1,7 @@
 ---
 - name: Build Docker Image in local host
   hosts: local
-  become: yes
+  # become: yes
   roles:
     - DockerBuild
 

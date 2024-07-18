@@ -22,7 +22,7 @@ pipeline {
                 
                 echo 'Building'
                 // sh 'cd build'
-                sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml --ask-become-pass'
+                sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml'
                 // build/dockerbuild-playbook.yml
             }
            

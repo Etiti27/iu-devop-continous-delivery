@@ -1,8 +1,8 @@
 ---
 
-    - name: Update APT package index
-      apt:
-        update_cache: yes
+    # - name: Update APT package index
+    #   apt:
+    #     update_cache: yes
  
     - name: Install Docker
       apt:
@@ -13,7 +13,7 @@
       apt:
         name: ansible
         state: present
-      become: true
+      # become: true
 
    
 
@@ -23,7 +23,7 @@
         name: docker
         state: started
         enabled: yes
-      become: true
+      # become: true
 
     # - name: Copy Dockerfile to remote host
       # copy:
