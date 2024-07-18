@@ -14,7 +14,7 @@
 
     - name: build docker image
       docker_image:
-        name: "{{docker_image }}"
+        name: "{{ docker_image_name }}"
         source: build  # <-- add
         build:         # <-- add
           path: /Users/obinna/Desktop/IU/DEVOP/webapp/  # <-- move under build:
