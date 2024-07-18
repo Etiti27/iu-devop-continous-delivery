@@ -1,6 +1,8 @@
 ---
 
-    
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
  
     - name: Install Docker
       command: brew install docker
