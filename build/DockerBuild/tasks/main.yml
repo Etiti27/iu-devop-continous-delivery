@@ -1,16 +1,4 @@
 ---
-
-   
- 
-    - name: Install Docker
-      command: brew install docker
-
-    - name: Install Ansible
-      command: brew install ansible
-
-   
-
-
     - name: Ensure Docker service is running
       service:
         name: docker
