@@ -1,11 +1,7 @@
 ---
 # tasks file for Deploy
 # 
-    - name: Ensure Docker is installed
-      apt:
-        name: docker.io
-        state: present
-        update_cache: yes
+    
 
     - name: Ensure Docker is running
       service:
