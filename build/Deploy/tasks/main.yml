@@ -1,16 +1,6 @@
 ---
 # tasks file for Deploy
-    - name: Update APT package index
-      apt:
-        update_cache: yes
- 
-    - name: Install Docker
-      apt:
-        name: docker.io
-        state: present
-
-    - name: Install Ansible
-      apt:
-        name: ansible
-        state: present
-      become: true
+   - name: building docker image
+     command: docker build -t webaaappp:v1 .
+     args:
+      chdir: /Users/obinna/Desktop/IU/DEVOP/webapp/
