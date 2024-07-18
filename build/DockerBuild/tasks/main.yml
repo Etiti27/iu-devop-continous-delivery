@@ -11,16 +11,16 @@
         msg: "Dockerfile not found!"
       when: not dockerfile_status.stat.exists
     
-    - name: install pip
-      command: pip install influxdb
-
     - name: build docker image
-      docker_image:
-        name: "{{ docker_image_name }}"
-        source: build  # <-- add
-        build:         # <-- add
-          path: /Users/obinna/Desktop/IU/DEVOP/webapp/  # <-- move under build:
-        tag: latest
+      command: docker build -t {{ docker_image_name }}:latest -f /Users/obinna/Desktop/IU/DEVOP/webapp/
+
+    # - name: build docker image
+    #   docker_image:
+    #     name: "{{ docker_image_name }}"
+    #     source: build  # <-- add
+    #     build:         # <-- add
+    #       path: /Users/obinna/Desktop/IU/DEVOP/webapp/  # <-- move under build:
+    #     tag: latest
 
     - name: Log in to Docker Hub
       docker_login:
