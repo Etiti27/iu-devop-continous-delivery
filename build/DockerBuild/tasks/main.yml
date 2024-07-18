@@ -4,7 +4,7 @@
         name: docker
         state: started
         enabled: yes
-      become: true
+      # become: true
 
     # - name: Copy Dockerfile to remote host
       # copy:
