@@ -1,15 +1,14 @@
 ---
-- name: Build Docker Image
-  hosts: all
+- name: Build Docker Image in local host
+  hosts: local
   become: yes
-  tasks:
-    - name: Copy a configuration file
-      copy:
-        src: ../../.
-        dest: /etc/myapp/
-        owner: root
-        group: root
-        mode: '0644'
   roles:
     - DockerBuild
+
+# - name: deploy docker and kubernetes to remote host
+#   hosts: all
+#   become: yes
+#   roles:
+#     - Deploy
+ 
  

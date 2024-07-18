@@ -1,10 +1,5 @@
 ---
-# tasks file for DockerBuild
-    # - name: Run Docker container
-      # shell: |
-        # apt update -y install
-# /Users/obinna/Desktop/IU/DEVOP/build
-   
+
     - name: Update APT package index
       apt:
         update_cache: yes
@@ -36,23 +31,9 @@
         # dest: /home/ubuntu/Dockerfile
 
 
-  
-
-    - name: Copy large file to remote host
-      synchronize:
-        src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        dest:  /home/ubuntu/
-        rsync_opts:
-          - "--compress"
-          - "--progress"
-          - "--delete"
-
-    
-    
-
     - name: Check if Dockerfile exists
       ansible.builtin.stat:
-        path: /home/ubuntu/webapp/Dockerfile
+        path: /Users/obinna/Desktop/IU/DEVOP/webapp/Dockerfile
       register: dockerfile_status
 
     - name: Fail if Dockerfile does not exist
@@ -63,43 +44,25 @@
 
     - name: build docker image
       docker_image:
-        name: iucicd
+        name: "{{docker_image }}"
         source: build  # <-- add
         build:         # <-- add
-          path: /home/ubuntu/webapp/  # <-- move under build:
+          path: /Users/obinna/Desktop/IU/DEVOP/webapp/  # <-- move under build:
         tag: latest
-   
 
-    
-   
-    # - name: Build Docker image
-      # community.docker.docker_image:
-      #  build:
-        # context: /home/ubuntu/webapp/       # Directory containing the Dockerfile
-        # dockerfile: Dockerfile                # Name of the Dockerfile (if not named 'Dockerfile')
-      #  name: web-app         # Name of the Docker image
-      #  tag: latest            # Optional: specify a tag
-      #  state: present
+    - name: Log in to Docker Hub
+      docker_login:
+        username: "{{ docker_username }}"   # Your Docker Hub username
+        password: "{{ docker_password }}"   # Your Docker Hub password
 
-    
-
-        # - name: Build Docker image
-   
-
-    # - name: Build Docker image
-      # community.docker.docker_image:
-      #  build:
-        # context: /home/ubuntu/webapp/       # Directory containing the Dockerfile and any necessary files
-        # dockerfile: .              # Specify the Dockerfile if it's not named 'Dockerfile'
-      #  name: mycicd                          # Name of the Docker image
-      #  tag: latest                           # Optional: specify a tag
-      #  state: present
-
+    - name: Push Docker image to Docker Hub
+      docker_image:
+        name: "{{ docker_username }}/{{ docker_image }}"   # Replace with your Docker Hub username and image name
+        tag: latest
+        push: yes
  
     
 
 
       
-    # - name: Run Docker container
-      # shell: |
-        # docker run -d --name {{docker_image_name}} -p 3000:3000 {{ docker_image_name }}:{{ docker_image_tag }}
+   
