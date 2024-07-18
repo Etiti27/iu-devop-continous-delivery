@@ -1,12 +1,11 @@
 ---
 - name: Build Docker Image in local host
   hosts: local
-  vars:
-    ansible_python_interpreter: /usr/bin/python3  # Example path to Python 3 interpreter
+  # Example path to Python 3 interpreter
   tasks:
   become: yes
   roles:
-    - DockerBuild
+    - Deploy
 
 # - name: deploy docker and kubernetes to remote host
 #   hosts: all
