@@ -1,5 +1,6 @@
 ---
 # tasks file for Deploy
+# 
    - name: building docker image
      command: docker build -t webaaappp:v1 .
      args:
