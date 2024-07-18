@@ -1,7 +1,26 @@
 ---
 # tasks file for Deploy
 # 
-   - name: building docker image
-     command: docker build -t webaaappp:v1 .
-     args:
-      chdir: /Users/obinna/Desktop/IU/DEVOP/webapp/
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Ensure Docker is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+   
+
+    - name: Build Docker image with BuildKit
+      command: DOCKER_BUILDKIT=1 docker build -t app:v1 .
+      args:
+        chdir: /home/ansibleadmin/app/
+      register: build_output
+
+    - name: Print build output
+      debug:
+        var: build_output.stdout_lines
