@@ -1,28 +1,29 @@
 ---
 
-    - name: Update APT package cache
+    - name: Update APT package index
       apt:
         update_cache: yes
  
     - name: Install Docker
-      command: brew install docker
-      
+      apt:
+        name: docker.io
+        state: present
 
     - name: Install Ansible
       apt:
         name: ansible
         state: present
-      # become: true
+      become: true
 
    
 
 
-    # - name: Ensure Docker service is running
-    #   service:
-    #     name: docker
-    #     state: started
-    #     enabled: yes
-      # become: true
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: true
 
     # - name: Copy Dockerfile to remote host
       # copy:
