@@ -1,15 +1,4 @@
 ---
-    - name: Ensure Docker service is running
-      service:
-        name: docker
-        state: started
-        enabled: yes
-      # become: true
-
-    # - name: Copy Dockerfile to remote host
-      # copy:
-        # src: /Users/obinna/Desktop/IU/DEVOP/Dockerfile
-        # dest: /home/ubuntu/Dockerfile
 
 
     - name: Check if Dockerfile exists
