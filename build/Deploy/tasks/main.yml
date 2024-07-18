@@ -2,21 +2,37 @@
 # tasks file for Deploy
 # 
     
+    - name: Ensure Python3 is installed
+      package:
+        name: python3
+        state: present
 
-    - name: Ensure Docker is running
-      service:
+    - name: Ensure pip3 is installed
+      package:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker SDK for Python
+      pip:
+        name: docker
+        state: present
+
+    - name: Install Docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install Docker
+      ansible.builtin.yum:
+        name: docker
+        state: present
+        update_cache: yes
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Ensure Docker service is running
+      ansible.builtin.service:
         name: docker
         state: started
         enabled: yes
-
-   
-
-    - name: Build Docker image with BuildKit
-      command: DOCKER_BUILDKIT=1 docker build -t app:v1 .
-      args:
-        chdir: /home/ansibleadmin/app/
-      register: build_output
-
-    - name: Print build output
-      debug:
-        var: build_output.stdout_lines
