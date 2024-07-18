@@ -6,21 +6,22 @@
         name: python3
         state: present
 
-    - name: Ensure pip3 is installed
-      ansible.builtin.command:
-        cmd: python3 -m ensurepip --default-pip
-      when: ansible_facts['distribution'] == 'MacOSX'
-
-    - name: Ensure pip3 is installed on Linux
-      ansible.builtin.package:
-        name: python3-pip
-        state: present
-      when: ansible_facts['distribution'] != 'MacOSX'
-
-    - name: Install Docker SDK for Python
+    - name: Ensure venv module is available
       ansible.builtin.pip:
-        name: docker
+        name: virtualenv
         state: present
+
+    - name: Create a virtual environment
+      ansible.builtin.command:
+        cmd: python3 -m venv /tmp/ansible_venv
+
+    - name: Install pip in the virtual environment
+      ansible.builtin.command:
+        cmd: /tmp/ansible_venv/bin/pip install --upgrade pip
+
+    - name: Install Docker SDK for Python in the virtual environment
+      ansible.builtin.command:
+        cmd: /tmp/ansible_venv/bin/pip install docker
 
     - name: Install Docker on Debian-based systems
       ansible.builtin.apt:
@@ -41,3 +42,10 @@
         name: docker
         state: present
       when: ansible_facts['distribution'] == 'MacOSX'
+
+    - name: Ensure Docker service is running on Linux
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+      when: ansible_facts['os_family'] != 'Darwin'
