@@ -56,6 +56,12 @@
     state: started
     enabled: yes
 
+
+- name: Check if Dockerfile is present
+  ansible.builtin.shell: |
+        ls && pwd
+  register: dockerfile_check
+
 - name: Check if Dockerfile is present
   ansible.builtin.stat:
     path: "{{ dockerfile_path }}"
