@@ -59,20 +59,20 @@
 - name: Check if Dockerfile is present
   ansible.builtin.stat:
     path: "{{ dockerfile_path }}/Dockerfile"
-    register: dockerfile_stat
+  register: dockerfile_stat
 
 - name: Fail if Dockerfile is not present
   ansible.builtin.fail:
     msg: "Dockerfile not found in the specified path"
-    when: not dockerfile_stat.stat.exists
+  when: not dockerfile_stat.stat.exists
 
 - name: Build Docker image
   community.docker.docker_image:
     build:
       path: "{{ dockerfile_path }}"
-      name: mychoice
-      tag: latest
-      when: dockerfile_stat.stat.exists
+    name: mychoice
+    tag: latest
+  when: dockerfile_stat.stat.exists
 # - name: Check if Dockerfile is present
 #   ansible.builtin.stat:
 #     path: "{{ dockerfile_path }}/Dockerfile"
