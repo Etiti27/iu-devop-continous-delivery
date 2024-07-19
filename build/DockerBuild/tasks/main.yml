@@ -56,10 +56,15 @@
     state: started
     enabled: yes
 
+- name: Check current working directory
+  ansible.builtin.command:
+    cmd: pwd
+  register: current_directory
 
-- name: Check if Dockerfile is present
+
+- name: print shell
   ansible.builtin.shell: |
-        ls && pwd
+        ls
   register: dockerfile_check
 
 - name: Check if Dockerfile is present
