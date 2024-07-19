@@ -20,8 +20,7 @@ pipeline {
             steps {
                 // Build the project
                 script{
-                     docker.build("wallpaper:latest")
-                }
+                    ls
                 
         
                 // sh 'cd build'
