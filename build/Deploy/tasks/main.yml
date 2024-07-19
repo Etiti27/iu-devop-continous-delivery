@@ -1,51 +1,16 @@
 ---
 # tasks file for Deploy
-# 
-    - name: Ensure Python3 is installed
-      ansible.builtin.package:
-        name: python3
-        state: present
-
-    - name: Ensure venv module is available
-      ansible.builtin.pip:
-        name: virtualenv
-        state: present
-
-    - name: Create a virtual environment
-      ansible.builtin.command:
-        cmd: python3 -m venv /tmp/ansible_venv
-
-    - name: Install pip in the virtual environment
-      ansible.builtin.command:
-        cmd: /tmp/ansible_venv/bin/pip install --upgrade pip
-
-    - name: Install Docker SDK for Python in the virtual environment
-      ansible.builtin.command:
-        cmd: /tmp/ansible_venv/bin/pip install docker
-
-    - name: Install Docker on Debian-based systems
-      ansible.builtin.apt:
+    - name: Update APT package index
+      apt:
+        update_cache: yes
+ 
+    - name: Install Docker
+      apt:
         name: docker.io
         state: present
-        update_cache: yes
-      when: ansible_facts['os_family'] == 'Debian'
 
-    - name: Install Docker on RedHat-based systems
-      ansible.builtin.yum:
-        name: docker
+    - name: Install Ansible
+      apt:
+        name: ansible
         state: present
-        update_cache: yes
-      when: ansible_facts['os_family'] == 'RedHat'
-
-    - name: Install Docker on macOS
-      ansible.builtin.homebrew:
-        name: docker
-        state: present
-      when: ansible_facts['distribution'] == 'MacOSX'
-
-    - name: Ensure Docker service is running on Linux
-      ansible.builtin.service:
-        name: docker
-        state: started
-        enabled: yes
-      when: ansible_facts['os_family'] != 'Darwin'
+      become: true

@@ -1,9 +1,9 @@
 ---
 - name: Build Docker Image in local host
-  hosts: local
+  hosts: remotes
   # Example path to Python 3 interpreter
   tasks:
-  # become: yes
+  become: yes
   roles:
     - Deploy
 

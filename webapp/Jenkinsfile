@@ -34,6 +34,18 @@ pipeline {
            
         } 
 
+        stage('deploy to remote server') {
+            steps {
+                
+             
+        
+                // sh 'cd build'
+                 sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml'
+                // build/dockerbuild-playbook.yml
+            }
+           
+        } 
+
       
 
       
