@@ -18,10 +18,11 @@ pipeline {
 
     stage('Build') {
             steps {
+                sh 'ls'
                 // Build the project
-                script{
+                /* script{
                     ls
-                }
+                } */
                 
         
                 // sh 'cd build'
