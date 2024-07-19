@@ -62,10 +62,6 @@
   register: current_directory
 
 
-- name: print shell
-  ansible.builtin.shell: |
-        ls
-  register: dockerfile_check
 
 - name: Check if Dockerfile is present
   ansible.builtin.stat:
