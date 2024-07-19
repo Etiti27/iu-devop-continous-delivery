@@ -50,6 +50,11 @@
     name: ansible
     state: present
 
+- name: Ensure Docker service is started and enabled
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: yes
 
 - name: Check if Dockerfile is present
   ansible.builtin.stat:
@@ -63,11 +68,28 @@
 
 - name: Build Docker image
   community.docker.docker_image:
-    path: "{{ dockerfile_path }}"
-    name: mychoice
-    tag: latest
-    when: dockerfile_stat.stat.exists
+    build:
+      path: "{{ dockerfile_path }}"
+      name: mychoice
+      tag: latest
+      when: dockerfile_stat.stat.exists
+# - name: Check if Dockerfile is present
+#   ansible.builtin.stat:
+#     path: "{{ dockerfile_path }}/Dockerfile"
+#     register: dockerfile_stat
+
+# - name: Fail if Dockerfile is not present
+#   ansible.builtin.fail:
+#     msg: "Dockerfile not found in the specified path"
+#     when: not dockerfile_stat.stat.exists
+
+# - name: Build Docker image
+#   community.docker.docker_image:
+#     path: "{{ dockerfile_path }}"
+#     name: mychoice
+#     tag: latest
+#     when: dockerfile_stat.stat.exists
 
 
-  
+ 
   
