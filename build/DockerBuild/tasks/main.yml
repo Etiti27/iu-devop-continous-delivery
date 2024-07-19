@@ -1,8 +1,11 @@
 ---
 
 
-    - name: Synchronize a directory to the remote server
-      synchronize:
-        src: /Users/obinna/Desktop/IU/DEVOP/webapp
-        dest: /home/ubuntu
-        delete: yes  # Optional: delete files in the destination that are not in the source
+- name: Synchronize a directory to the remote server
+  synchronize:
+    src: /Users/obinna/Desktop/IU/DEVOP/webapp
+    dest: /home/ubuntu
+    delete: yes  # Optional: delete files in the destination that are not in the source
+
+- name: check where i am
+  command: ls && pwd
