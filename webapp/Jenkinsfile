@@ -19,11 +19,11 @@ pipeline {
     stage('Build') {
             steps {
                 // Build the project
+                script{
+                     docker.build("wallpaper:latest")
+                }
                 
-                echo 'Building'
-                sh 'pwd'
-                sh 'docker build -t webapp22:latest -f webapp'
-                sh 'docker run -d -p 3000:3000 --name mywebapp22 webapp22:latest' 
+        
                 // sh 'cd build'
                 // sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml'
                 // build/dockerbuild-playbook.yml
