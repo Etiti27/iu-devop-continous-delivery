@@ -76,7 +76,7 @@
 - name: Build Docker image
   community.docker.docker_image:
     build:
-      path: "{{ dockerfile_path }}"
+      path: "{{ dockerfile_path }}/Dockerfile"
     name: mychoice
     tag: latest
   when: dockerfile_stat.stat.exists
