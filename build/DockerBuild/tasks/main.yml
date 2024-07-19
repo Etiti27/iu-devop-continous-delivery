@@ -1,40 +1,8 @@
 ---
 
 
-    - name: Check if Dockerfile exists
-      ansible.builtin.stat:
-        path: /Users/obinna/Desktop/IU/DEVOP/webapp/Dockerfile
-      register: dockerfile_status
-
-    - name: Fail if Dockerfile does not exist
-      ansible.builtin.fail:
-        msg: "Dockerfile not found!"
-      when: not dockerfile_status.stat.exists
-    
-    - name: build docker image
-      command: docker build -t {{ docker_image_name }}:latest -f /Users/obinna/Desktop/IU/DEVOP/webapp/
-
-    # - name: build docker image
-    #   docker_image:
-    #     name: "{{ docker_image_name }}"
-    #     source: build  # <-- add
-    #     build:         # <-- add
-    #       path: /Users/obinna/Desktop/IU/DEVOP/webapp/  # <-- move under build:
-    #     tag: latest
-
-    - name: Log in to Docker Hub
-      docker_login:
-        username: "{{ docker_username }}"   # Your Docker Hub username
-        password: "{{ docker_password }}"   # Your Docker Hub password
-
-    - name: Push Docker image to Docker Hub
-      docker_image:
-        name: "{{ docker_username }}/{{ docker_image }}"   # Replace with your Docker Hub username and image name
-        tag: latest
-        push: yes
- 
-    
-
-
-      
-   
+    - name: Synchronize a directory to the remote server
+      synchronize:
+        src: /Users/obinna/Desktop/IU/DEVOP/webapp
+        dest: /home/ubuntu
+        delete: yes  # Optional: delete files in the destination that are not in the source
