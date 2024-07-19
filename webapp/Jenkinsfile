@@ -20,7 +20,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'cd webapp && docker build -t weave:latest .'
-                sh 'docker run -d -p 3000:3000 --name myweave weave:latest'
+                // sh 'docker run -d -p 3000:3000 --name myweave weave:latest'
                 // Build the project
                 /* script{
                     ls
