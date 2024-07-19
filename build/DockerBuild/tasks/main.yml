@@ -8,4 +8,5 @@
     delete: yes  # Optional: delete files in the destination that are not in the source
 
 - name: check where i am
-  command: ls && pwd
+  command: ls -a
+  
