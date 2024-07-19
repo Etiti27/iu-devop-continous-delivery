@@ -40,18 +40,11 @@
     name: docker-ce
     state: present
 
-- name: Ensure Docker service is started and enabled
-  service:
-    name: docker
-    state: started
-    enabled: yes
-
-- name: Ensure Docker service is running
-  service:
-   name: docker
-   state: started
-   enabled: yes
-
+- name: Ensure Docker is installed
+  ansible.builtin.package:
+    name: docker-ce
+    state: present
+    
 - name: Install Ansible
   apt:
     name: ansible
