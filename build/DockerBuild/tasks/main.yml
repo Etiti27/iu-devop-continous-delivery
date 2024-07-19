@@ -50,10 +50,7 @@
     name: ansible
     state: present
 
-- name: Ensure Docker Python module is installed
-  ansible.builtin.pip:
-    name: docker
-    state: present
+
 
 - name: Build Docker image
   community.docker.docker_image:
