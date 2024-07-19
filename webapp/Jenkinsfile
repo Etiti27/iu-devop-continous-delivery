@@ -21,7 +21,7 @@ pipeline {
                 // Build the project
                 
                 echo 'Building'
-                sh 'docker build -t webapp22:latest -f /Users/obinna/Desktop/IU/DEVOP/webapp'
+                sh 'docker build -t webapp22:latest .'
                 sh 'docker run -d -p 3000:3000 --name mywebapp22 webapp22:latest'
                 // sh 'cd build'
                 // sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml'
