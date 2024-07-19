@@ -21,6 +21,7 @@ pipeline {
                 // Build the project
                 script{
                     ls
+                }
                 
         
                 // sh 'cd build'
