@@ -19,6 +19,7 @@ pipeline {
     stage('Build') {
             steps {
                 sh 'ls'
+                sh 'cd webapp && docker build -t weave:latest .'
                 // Build the project
                 /* script{
                     ls
