@@ -20,10 +20,10 @@
        username: "{{ docker_username }}"
        password: "{{ docker_password }}"
 
-    - name: Tag and push to docker hub
-      community.docker.docker_image:
-       name: webappiubh
-      repository: "{{ docker_username }}/weave:latest"
-      push: true
+    - name: add tag to an image
+      command: docker tag weave webapp5050
+
+    - name: push tagged image to docker hub
+      command: docker push webapp5050
     
      
