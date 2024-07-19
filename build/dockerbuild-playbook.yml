@@ -5,7 +5,7 @@
   tasks:
   become: yes
   roles:
-    - Deploy
+    - DockerBuild
 
 # - name: deploy docker and kubernetes to remote host
 #   hosts: all
