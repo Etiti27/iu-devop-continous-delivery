@@ -21,7 +21,7 @@ pipeline {
                 // Build the project
                 
                 echo 'Building'
-                echo 'pwd'
+                sh 'pwd'
                 /* sh 'docker build -t webapp22:latest '
                 sh 'docker run -d -p 3000:3000 --name mywebapp22 webapp22:latest' */
                 // sh 'cd build'
