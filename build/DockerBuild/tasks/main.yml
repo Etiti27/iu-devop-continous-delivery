@@ -73,17 +73,6 @@
     msg: "Dockerfile not found in the specified path"
   when: not dockerfile_stat.stat.exists
 
-- name: Ensure user is part of the Docker group
-  ansible.builtin.user:
-    name: "{{ ansible_user }}"
-    groups: docker
-    append: yes
-
-- name: Ensure Docker service is started and enabled
-  ansible.builtin.service:
-    name: docker
-    state: restarted
-    enabled: yes
 
 - name: Build Docker image
   community.docker.docker_image:
@@ -93,23 +82,10 @@
     name: mychoice
     tag: latest
   when: dockerfile_stat.stat.exists
-# - name: Check if Dockerfile is present
-#   ansible.builtin.stat:
-#     path: "{{ dockerfile_path }}/Dockerfile"
-#     register: dockerfile_stat
 
-# - name: Fail if Dockerfile is not present
-#   ansible.builtin.fail:
-#     msg: "Dockerfile not found in the specified path"
-#     when: not dockerfile_stat.stat.exists
-
-# - name: Build Docker image
-#   community.docker.docker_image:
-#     path: "{{ dockerfile_path }}"
-#     name: mychoice
-#     tag: latest
-#     when: dockerfile_stat.stat.exists
-
-
- 
-  
+- name: Log in to Docker Hub
+  community.docker.docker_login:
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"
+    reauthorize: yes
+  register: login_result
