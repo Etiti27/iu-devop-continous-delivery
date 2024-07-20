@@ -1,7 +1,7 @@
 ---
 # vars file for DockerBuild
 dockerfile_path: /home/ubuntu/webapp
-docker_image_name: webappiubh
-docker_image_tag: latest
+image_name: mychoice101
+image_tag: latest
 docker_password: J@nineIbe
 docker_username: obinna27
