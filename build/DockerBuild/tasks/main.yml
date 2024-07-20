@@ -73,7 +73,7 @@
     source: build
     build:
       path: "{{ dockerfile_path }}"
-    name: "{{ image_name }}"
+    name: "{{ docker_username }}/{{ image_name }}"
     tag: "{{ image_tag }}"
   when: dockerfile_stat.stat.exists
 
@@ -83,6 +83,9 @@
     password: "{{ docker_password }}"
     reauthorize: yes
   register: login_result
+
+
+
 
 
 - name: Push Docker image to Docker Hub
