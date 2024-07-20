@@ -90,4 +90,5 @@
     name: "{{ docker_username }}/{{ image_name }}"
     tag: "{{ image_tag }}"
     push: yes
+    source: local
   when: dockerfile_stat.stat.exists
