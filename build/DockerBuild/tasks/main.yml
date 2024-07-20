@@ -95,7 +95,7 @@
 
 - name: Tag and push to docker hub
   community.docker.docker_image:
-    name: "{{ image_name }}/{{ image_tag }}"
+    name: "{{ image_name }}"
     repository: "{{ docker_username }}/{{ image_name }}/{{ image_tag }}"
     push: true
     source: local
