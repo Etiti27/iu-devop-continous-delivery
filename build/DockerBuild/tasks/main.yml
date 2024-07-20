@@ -73,6 +73,12 @@
     msg: "Dockerfile not found in the specified path"
   when: not dockerfile_stat.stat.exists
 
+- name: Ensure user is part of the Docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
 - name: Build Docker image
   community.docker.docker_image:
     source: build
