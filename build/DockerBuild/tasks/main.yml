@@ -95,7 +95,7 @@
 
 - name: Tag and push to docker hub
   community.docker.docker_image:
-    name: pacur/centos-7:56
+    name: "{{ image_name }}/{{ image_tag }}"
     repository: "{{ docker_username }}/{{ image_name }}/{{ image_tag }}"
     push: true
     source: local
