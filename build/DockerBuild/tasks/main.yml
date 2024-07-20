@@ -79,6 +79,12 @@
     groups: docker
     append: yes
 
+- name: Ensure Docker service is started and enabled
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+    enabled: yes
+
 - name: Build Docker image
   community.docker.docker_image:
     source: build
