@@ -100,9 +100,15 @@
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
 
-- name: Add Kubernetes apt repository
+# - name: Add Kubernetes apt repository
+#   apt_repository:
+#     repo: deb http://apt.kubernetes.io/ kubernetes-focal main
+#     state: present
+
+
+- name: Add Kubernetes repository
   apt_repository:
-    repo: deb http://apt.kubernetes.io/ kubernetes-focal main
+    repo: "deb http://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release | lower }} main"
     state: present
 
 - name: Install kubelet, kubeadm, kubectl
