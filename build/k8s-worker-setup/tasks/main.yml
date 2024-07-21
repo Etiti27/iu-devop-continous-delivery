@@ -1,0 +1,10 @@
+---
+# tasks file for k8-worker-setup
+- name: Copy join command from master
+  fetch:
+    src: /home/ubuntu/join_command.sh
+    dest: /tmp/join_command.sh
+    flat: yes
+
+- name: Join Kubernetes Cluster
+  shell: bash /tmp/join_command.sh

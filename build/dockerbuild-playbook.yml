@@ -1,16 +1,34 @@
 ---
-- name: Build Docker Image in local host
-  hosts: remotes
-  # Example path to Python 3 interpreter
+- name: Build Docker Image and setup k8s in all remote host
+  hosts: all
   tasks:
   become: yes
   roles:
     - DockerBuild
 
-# - name: deploy docker and kubernetes to remote host
-#   hosts: all
-#   become: yes
-#   roles:
-#     - Deploy
+
+- name: setup k8s master 
+  hosts: master
+  tasks:
+  become: yes
+  roles:
+    - k8s-master-setup
+
+
+- name: setup k8s master 
+  hosts: worker
+  tasks:
+  become: yes
+  roles:
+    - k8s-worker-setup
+
+- name: setup k8s master 
+  hosts: master
+  tasks:
+  become: yes
+  roles:
+    - deploy-k8s
+
+
  
  
