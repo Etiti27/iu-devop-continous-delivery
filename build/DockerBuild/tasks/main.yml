@@ -28,7 +28,8 @@
 
 - name: Add Docker's APT repository
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ distro_codename.stdout }} stable"
+    # repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ distro_codename.stdout }} stable"
     state: present
 
 - name: Update the apt package index again
@@ -108,7 +109,7 @@
 
 - name: Add Kubernetes repository
   apt_repository:
-    repo: deb https://packages.cloud.google.com/apt/ kubernetes-{{ ansible_distribution_release | lower }} main
+    repo: "deb https://apt.kubernetes.io/ kubernetes-{{ distro_codename.stdout }} main"
     state: present
     # eb https://packages.cloud.google.com/apt/ kubernetes-{{ ansible_distribution_release | lower }} main"
 
