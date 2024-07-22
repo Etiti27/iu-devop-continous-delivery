@@ -1,9 +1,28 @@
 ---
-- name: Ensure the Kubernetes APT source list has the correct entry
-  lineinfile:
+
+
+- name: Remove old Kubernetes APT repository file
+  file:
     path: /etc/apt/sources.list.d/packages_cloud_google_com_apt_kubernetes_noble.list
-    line: 'deb https://packages.cloud.google.com/apt kubernetes-{{ ansible_distribution_release }} main'
+    state: absent
+
+- name: Add the Kubernetes APT repository
+  lineinfile:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    line: 'deb https://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main'
     create: yes
+
+- name: Add the Kubernetes GPG key
+  shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+- name: Update the apt package index
+  apt:
+    update_cache: yes
+# - name: Ensure the Kubernetes APT source list has the correct entry
+#   lineinfile:
+#     path: /etc/apt/sources.list.d/packages_cloud_google_com_apt_kubernetes_noble.list
+#     line: 'deb https://packages.cloud.google.com/apt kubernetes-{{ ansible_distribution_release }} main'
+#     create: yes
 
 
 
