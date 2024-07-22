@@ -5,4 +5,4 @@ docker_image_tag: latest
 docker_password: J@nineIbe
 docker_username: obinna27
 ad_addr: 44.223.85.155
-cidr_v: 172.31.0.0/16
+cidr_v: 110.244.0.0/16
