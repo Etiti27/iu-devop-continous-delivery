@@ -39,10 +39,18 @@
     name: docker-ce
     state: present
 
+
+
 - name: Ensure Docker is installed
   ansible.builtin.package:
     name: docker-ce
     state: present
+
+- name: Start Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
 
 - name: Install Ansible
   apt:
