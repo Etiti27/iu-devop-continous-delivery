@@ -1,49 +1,4 @@
 ---
-- name: Install required packages
-  apt:
-    pkg:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gpg
-    state: latest
-
-- name: Use the k8s apt key
-  get_url:
-    url: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
-    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
-    mode: "0644"
-
-- name: Install k8s apt sources
-  apt_repository:
-    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /
-    state: present
-
-- name: Remove old Kubernetes APT repository file
-  file:
-    path: /etc/apt/sources.list.d/packages_cloud_google_com_apt_kubernetes_noble.list
-    state: absent
-
-- name: Add the Kubernetes APT repository
-  lineinfile:
-    path: /etc/apt/sources.list.d/kubernetes.list
-    line: 'deb https://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main'
-    create: yes
-
-- name: Add the Kubernetes GPG key
-  shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-
-- name: Update the apt package index
-  apt:
-    update_cache: yes
-# - name: Ensure the Kubernetes APT source list has the correct entry
-#   lineinfile:
-#     path: /etc/apt/sources.list.d/packages_cloud_google_com_apt_kubernetes_noble.list
-#     line: 'deb https://packages.cloud.google.com/apt kubernetes-{{ ansible_distribution_release }} main'
-#     create: yes
-
-
-
 - name: Synchronize a directory to the remote server
   synchronize:
     src: /Users/obinna/Desktop/IU/DEVOP/webapp
@@ -51,9 +6,9 @@
     delete: yes  # Optional: delete files in the destination that are not in the source
 
 
-- name: Update the apt package index
-  apt:
-    update_cache: yes
+# - name: Update the apt package index
+#   apt:
+#     update_cache: yes
 
 - name: Install prerequisites for Docker
   apt:
@@ -75,9 +30,9 @@
     
     state: present
 
-- name: Update the apt package index again
-  apt:
-    update_cache: yes
+# - name: Update the apt package index again
+#   apt:
+#     update_cache: yes
 
 - name: Install Docker
   apt:
@@ -144,18 +99,12 @@
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
 
-# - name: Add Kubernetes apt repository
-#   apt_repository:
-#     repo: deb http://apt.kubernetes.io/ kubernetes-focal main
-#     state: present
+- name: Add Kubernetes apt repository
+  apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-focal main
+    state: present
 #
 
-
-- name: Add Kubernetes repository
-  apt_repository:
-    repo: "deb https://packages.cloud.google.com/apt/ kubernetes-{{ ansible_distribution_release | lower }} main"
-    state: present
-    # eb https://packages.cloud.google.com/apt/ kubernetes-{{ ansible_distribution_release | lower }} main"
 
 - name: Install kubelet, kubeadm, kubectl
   apt:
