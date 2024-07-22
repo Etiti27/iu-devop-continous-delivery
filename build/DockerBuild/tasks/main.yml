@@ -107,7 +107,7 @@
     repo: deb http://mirror.reenigne.net/apt.kubernetes.io/ kubernetes-xenial main
     state: present
     filename: kubernetes
- 
+ #
 
 # - name: Add Kubernetes apt-key
 #   apt_key:
