@@ -136,4 +136,4 @@
       - kubelet
       - kubeadm
       - kubectl
-    state: hold
+    got: hold
