@@ -54,13 +54,16 @@
     - { key: net.ipv4.ip_forward, value: 1 }
 
 
-- name: Hold Kubernetes packages at current version
-  apt:
-    name:
-      - kubelet
-      - kubeadm
-      - kubectl
-    got: held
+# - name: Hold Kubernetes packages at current version
+#   apt:
+#     name:
+#       - kubelet
+#       - kubeadm
+#       - kubectl
+#     got: held
+
+- name: Mark Kubernetes packages as held
+  command: apt-mark hold kubelet kubeadm kubectl
 
 - name: Initialize Kubernetes master
   command: kubeadm init --pod-network-cidr=10.244.0.0/16
