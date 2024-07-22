@@ -39,7 +39,7 @@
     name: docker-ce
     state: present
 
-
+#
 
 - name: Ensure Docker is installed
   ansible.builtin.package:
