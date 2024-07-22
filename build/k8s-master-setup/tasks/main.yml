@@ -59,11 +59,11 @@
   failed_when: "'error execution phase preflight' in kubeadm_init.stderr"
 
 - name: Configure kubeconfig for the current user
-  command: >
+  command: |
     mkdir -p $HOME/.kube
     && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     && chown $(id -u):$(id -g) $HOME/.kube/config
-  becomes: false
+  becomes: no
   
 
 - name: Install Flannel network plugin
