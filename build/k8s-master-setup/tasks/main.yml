@@ -1,6 +1,9 @@
 ---
 #setup master node
 
+
+# ended here
+
 - name: Initialize Kubernetes Cluster
   shell: kubeadm init --pod-network-cidr=10.244.0.0/16
   register: kubeadm_init
