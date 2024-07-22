@@ -19,11 +19,20 @@
   command: swapoff -a
   ignore_errors: true
 
-- name: Ensure swap is disabled permanently
+# - name: Ensure swap is disabled permanently
+#   lineinfile:
+#     path: /etc/fstab
+#     egexp: '^.*swap.*'
+#     state: absent
+
+- name: Ensure swap is disabled in fstab
   lineinfile:
     path: /etc/fstab
-    egexp: '^.*swap.*'
-    state: absent
+    regexp: '^([^#].*swap)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+ 
 
 - name: Enable necessary kernel modules
   modprobe:
