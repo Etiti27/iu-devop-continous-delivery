@@ -66,17 +66,17 @@
   
   
 
-- name: Install Flannel network plugin
-  kubectl:
-    kubeconfig: /etc/kubernetes/admin.conf
-    state: present
-    src: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+# - name: Install Flannel network plugin
+#   kubectl:
+#     kubeconfig: /etc/kubernetes/admin.conf
+#     state: present
+#     src: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
-- name: Print Kubernetes cluster info
-  command: kubectl cluster-info
-  register: cluster_info
+# - name: Print Kubernetes cluster info
+#   command: kubectl cluster-info
+#   register: cluster_info
   
 
-- name: Display Kubernetes cluster info
-  debug:
-    msg: "{{ cluster_info.stdout }}"
+# - name: Display Kubernetes cluster info
+#   debug:
+#     msg: "{{ cluster_info.stdout }}"
