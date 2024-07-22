@@ -5,3 +5,18 @@ image_name: mychoice101
 image_tag: latest
 docker_password: J@nineIbe
 docker_username: obinna27
+packages:
+- docker
+- kubeadm
+- kubectl
+
+services:
+- docker
+- kubelet
+- firewalld
+
+ports:
+- "6443/tcp"
+- "10250/tcp"
+
+token_file: join_token

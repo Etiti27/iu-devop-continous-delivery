@@ -4,7 +4,7 @@
   tasks:
   become: yes
   roles:
-    - DockerBuild
+    - setup-all-nodes
 
 
 - name: setup k8s master 
