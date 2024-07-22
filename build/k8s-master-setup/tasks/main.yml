@@ -63,7 +63,7 @@
     mkdir -p $HOME/.kube
     && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     && chown $(id -u):$(id -g) $HOME/.kube/config
-  becomes: no
+  
   
 
 - name: Install Flannel network plugin
@@ -75,7 +75,7 @@
 - name: Print Kubernetes cluster info
   command: kubectl cluster-info
   register: cluster_info
-  become: false
+  
 
 - name: Display Kubernetes cluster info
   debug:
