@@ -100,10 +100,15 @@
     push: yes
     source: local
   when: dockerfile_stat.stat.exists
-#  start
 
-
-# end
+- name: Ensure a Docker container is running
+  docker_container:
+    name: webapp419
+    image: "{{ docker_username }}/{{ image_name }}"
+    state: started
+    ports:
+      - "3000:3000"
+    restart_policy: always
 
 - name: Add kubernetes key
   apt_key:
