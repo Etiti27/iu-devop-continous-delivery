@@ -65,30 +65,21 @@
 - name: Mark Kubernetes packages as held
   command: apt-mark hold kubelet kubeadm kubectl
 
-- name: Initialize Kubernetes master
-  command: kubeadm init --pod-network-cidr=10.244.0.0/16
-  register: kubeadm_init
-  failed_when: "'error execution phase preflight' in kubeadm_init.stderr"
+- name: Pulling images required for setting up a Kubernetes cluster
+  shell: kubeadm config images pull
 
-- name: Configure kubeconfig for the current user
-  command: |
+- name: Initializing Kubernetes cluster
+  shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}}
+  register: output
+
+- name: Storing Logs and Generated token for future purpose.
+  local_action: copy content={{ output.stdout }} dest={{ token_file }}
+
+- name: Copying required files
+  shell: |
     mkdir -p $HOME/.kube
-    && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    && chown $(id -u):$(id -g) $HOME/.kube/config
-  
-  
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-# - name: Install Flannel network plugin
-#   kubectl:
-#     kubeconfig: /etc/kubernetes/admin.conf
-#     state: present
-#     src: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-
-# - name: Print Kubernetes cluster info
-#   command: kubectl cluster-info
-#   register: cluster_info
-  
-
-# - name: Display Kubernetes cluster info
-#   debug:
-#     msg: "{{ cluster_info.stdout }}"
+- name: Install Network Add-on
+  command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
