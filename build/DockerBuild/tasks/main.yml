@@ -131,9 +131,10 @@
     update_cache: yes
 
 - name: Mark kubelet, kubeadm, kubectl on hold
-  apt:
-    name:
-      - kubelet
-      - kubeadm
-      - kubectl
-    got: hold
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
