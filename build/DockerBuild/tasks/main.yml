@@ -1,5 +1,9 @@
 ---
-
+- name: Ensure the Kubernetes APT source list has the correct entry
+  lineinfile:
+    path: /etc/apt/sources.list.d/packages_cloud_google_com_apt_kubernetes_noble.list
+    line: 'deb https://packages.cloud.google.com/apt kubernetes-{{ ansible_distribution_release }} main'
+    create: yes
 
 - name: Synchronize a directory to the remote server
   synchronize:
