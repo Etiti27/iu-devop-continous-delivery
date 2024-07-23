@@ -152,32 +152,12 @@
 - name: install docker repository
   shell: |
           sudo apt-get update
-
-- name: ca-certificates curl
-  shell: sudo apt-get install ca-certificates curl
-
-- name: install /etc/apt/keyrings
-  shell: sudo install -m 0755 -d /etc/apt/keyrings
-
-- name: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-  shell: sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-
-- name: sudo chmod a+r /etc/apt/keyrings/docker.asc
-  shell: sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-- name: echo 
-  shell: echo \
-          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          sudo mkdir -p /etc/apt/keyrings
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc
+          echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 - name: sudo apt-get update
   shell: sudo apt-get update
-          
-          
-          
-          
-          
           
 
 - name: install containerd
