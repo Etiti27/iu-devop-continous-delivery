@@ -193,7 +193,6 @@
 - name: setup before kubelet install
   shell: |
           sudo apt-get update
-        
           sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 
 - name: continue kubelet setup
