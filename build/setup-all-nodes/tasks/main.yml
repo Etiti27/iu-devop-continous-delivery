@@ -190,7 +190,7 @@
 
 - name: enable kubelet
   shell: sudo systemctl enable --now kubelet
-
+# 
 
   # end
 # - name: Add kubernetes key
