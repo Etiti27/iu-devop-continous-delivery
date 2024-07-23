@@ -171,10 +171,8 @@
   shell: sudo systemctl restart containerd
 
 - name: setup before kubelet install
-  shell: |
-        
-          chmod +x setup-kubernetes.sh
-          ./setup-kubernetes.sh
+  command: chmod +x setup-kubernetes.sh
+          
          
 
 
