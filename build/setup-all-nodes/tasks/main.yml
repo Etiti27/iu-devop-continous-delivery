@@ -171,10 +171,25 @@
   shell: sudo systemctl restart containerd
 
 - name: setup before kubelet install
-  command: chmod +x setup-kubernetes.sh
-          
-         
+  shell: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 
+- name: continue kubelet setup
+  shell: sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+- name: continue kubelet setup 2
+  shell: |
+          echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+- name: update and held resources
+  shell: |
+          sudo apt-get update
+          sudo apt-get install -y kubelet kubeadm kubectl
+          sudo apt-mark hold kubelet kubeadm kubectl
+
+- name: enable kubelet
+  shell: sudo systemctl enable --now kubelet
 
 
   # end
