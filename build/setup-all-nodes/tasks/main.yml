@@ -176,7 +176,7 @@
           sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 
 - name: continue kubelet setup
-  shell: sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  shell: sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor --yes -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
 - name: continue kubelet setup 2
   shell: |
