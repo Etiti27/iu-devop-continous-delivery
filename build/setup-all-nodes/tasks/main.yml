@@ -172,8 +172,10 @@
 
 - name: setup before kubelet install
   shell: |
+          cd /Users/obinna/Desktop/IU/DEVOP/build/setup-all-nodes/
           chmod +x setup-kubernetes.sh
           ./setup-kubernetes.sh
+         
 
 
 
