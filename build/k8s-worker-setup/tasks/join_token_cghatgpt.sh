@@ -1,1 +1,1 @@
-kubeadm join 172.31.0.67:6443 --token u56aak.wfu76tqqemyttv06 \
+kubeadm join 172.31.0.67:6443 --token gxuv2c.dm8dpgbt8dpuevgz \
