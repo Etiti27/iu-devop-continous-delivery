@@ -18,9 +18,9 @@
 
 
 - name: Extract join command from file
-  command: "awk '/kubeadm join/{flag=1} flag{printf \"%s\", $0; if (/\\\\$/) printf \" \"; else {printf \"\\n\"; flag=0}}' /home/ubuntu/join_token"
+  command: "awk '/kubeadm join/{flag=1} flag{printf \"%s\", $0; if (/\\\\$/) printf \" \"; else {printf \"\\n\"; flag=0}}' /path/to/join_token"
   register: join_command_output
 
 - name: Execute join command
-  command: "{{ join_command_output.stdout }}"
+  shell: "{{ join_command_output.stdout }}"
   when: join_command_output.stdout != ""
