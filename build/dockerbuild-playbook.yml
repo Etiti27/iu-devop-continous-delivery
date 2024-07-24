@@ -4,7 +4,7 @@
   tasks:
   become: yes
   roles:
-    - setup-all-node
+    - setup-all-nodes
 
 - name: setup k8s master 
   hosts: master
