@@ -12,12 +12,27 @@
 #     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
 #   become: false
 
-- name: Store logs and generated token
-  local_action:
-    module: ansible.builtin.copy
-    content: "{{ output.stdout }}"
-    dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
-  become: false
+# - name: Store logs and generated token
+#   local_action:
+#     module: ansible.builtin.copy
+#     content: "{{ output.stdout }}"
+#     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
+#   become: false
+
+- name: Initialize Kubernetes Master Node
+  command: sudo kubeadm init 
+  register: kubeadm_init_output
+
+- name: Store kubeadm join command for worker nodes
+  copy:
+    content: "{{ kubeadm_init_output.stdout_lines | select('search', 'kubeadm join') | list | join(' ') }}"
+    dest: /home/ubuntu/kubeadm_join_command.sh
+
+- name: Ensure the kubeadm join script is executable
+  file:
+    path: /home/ubuntu/kubeadm_join_command.sh
+    mode: '0755'
+    state: file
 
 
 - name: Copying required files
@@ -29,3 +44,7 @@
 # - name: Install Network Add-on
 #   command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 # 
+
+
+
+

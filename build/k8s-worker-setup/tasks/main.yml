@@ -1,14 +1,18 @@
 ---
 # tasks file for k8-worker-setup
 
-- name: Synchronize a directory to the remote server
-  synchronize:
-    src: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token
-    dest: /home/ubuntu
-    delete: yes 
-- name: Joining worker nodes with kubernetes master
-  shell: awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token > /home/ubuntu/command.sh
+- name: Fetch kubeadm join command from master
+  fetch:
+    src: /home/ubuntu/kubeadm_join_command.sh
+    dest: /home/ubuntu/
+    flat: yes
 
+- name: Ensure the kubeadm join script is executable
+  file:
+    path: /home/ubuntu/kubeadm_join_command.sh
+    mode: '0755'
+    state: file
 
-- name: Join the worker node to cluster
-  command: sh /home/ubuntu/command.sh
+- name: Execute the kubeadm join command
+  shell: |
+        /home/ubuntu/kubeadm_join_command.sh
