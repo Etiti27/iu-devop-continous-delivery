@@ -33,3 +33,4 @@
 - name: Execute the join command
   shell: "{{ join_command_cleaned }}"
   when: join_command_cleaned != ""
+  # 
