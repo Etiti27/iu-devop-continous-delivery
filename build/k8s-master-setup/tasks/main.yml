@@ -19,24 +19,12 @@
     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
   become: false
 
-- name: Create .kube directory
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.kube"
-    state: directory
 
-- name: Copy Kubernetes admin config file
-  ansible.builtin.copy:
-    src: /etc/kubernetes/admin.conf
-    dest: "{{ ansible_env.HOME }}/.kube/config"
-    owner: "{{ ansible_uid }}"
-    group: "{{ ansible_gid }}"
-    mode: '0644'
-
-# - name: Copying required files
-#   shell: |
-#     mkdir -p $HOME/.kube
-#     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#     sudo chown $(id -u):$(id -g) $HOME/.kube/config
+- name: Copying required files
+  shell: |
+    mkdir -p $HOME/.kube
+    sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # - name: Install Network Add-on
 #   command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
