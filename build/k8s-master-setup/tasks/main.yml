@@ -10,6 +10,8 @@
     module: copy
     content: "{{ output.stdout }}"
     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
+  become: false
+
 
 - name: Copying required files
   shell: |

@@ -10,7 +10,7 @@
 - name: setup k8s master 
   hosts: master
   tasks:
-  become: yes
+  # become: yes
   roles:
     - k8s-master-setup
 
