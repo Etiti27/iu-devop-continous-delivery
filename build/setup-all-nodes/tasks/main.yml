@@ -1,249 +1,81 @@
 ---
+- name: update packages
+  command: sudo apt-get update
+
 - name: Synchronize a directory to the remote server
   synchronize:
     src: /Users/obinna/Desktop/IU/DEVOP/webapp
     dest: /home/ubuntu
     delete: yes  # Optional: delete files in the destination that are not in the source
 
+- name: Install Ansible
+  apt:
+    name: ansible
+    state: present
 
-# - name: Update the apt package index
-#   apt:
-#     update_cache: yes
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
 
-# - name: Install prerequisites for Docker
-#   apt:
-#     name:
-#       - apt-transport-https
-#       - ca-certificates
-#       - curl
-#       - software-properties-common
-#     state: present
+- name: Check if Dockerfile is present
+  ansible.builtin.stat:
+    path: "{{ dockerfile_path }}/Dockerfile"
+  register: dockerfile_stat
 
-# - name: Add Docker's official GPG key
-#   apt_key:
-#     url: https://download.docker.com/linux/ubuntu/gpg
-#     state: present
+- name: Fail if Dockerfile is not present
+  ansible.builtin.fail:
+    msg: "Dockerfile not found in the specified path"
+  when: not dockerfile_stat.stat.exists
 
-# - name: Add Docker's APT repository
-#   apt_repository:
-#     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-    
-#     state: present
+- name: Build Docker image
+  community.docker.docker_image:
+    source: build
+    build:
+      path: "{{ dockerfile_path }}"
+    name: "{{ docker_username }}/{{ image_name }}"
+    tag: "{{ image_tag }}"
+  when: dockerfile_stat.stat.exists
 
-# - name: Update the apt package index again
-#   apt:
-#     update_cache: yes
+- name: Log in to Docker Hub
+  community.docker.docker_login:
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"
+    reauthorize: yes
+  register: login_result
 
-# - name: Install Docker
-#   apt:
-#     name: docker-ce
-#     state: present
+- name: Push Docker image to Docker Hub
+  community.docker.docker_image:
+    name: "{{ docker_username }}/{{ image_name }}"
+    tag: "{{ image_tag }}"
+    push: yes
+    source: local
+  when: dockerfile_stat.stat.exists
 
-# #
+- name: Ensure a Docker container is running
+  docker_container:
+    name: webapp419
+    image: "{{ docker_username }}/{{ image_name }}"
+    state: started
+    ports:
+      - "3000:3000"
+    restart_policy: always
 
-# - name: Ensure Docker is installed
-#   ansible.builtin.package:
-#     name: docker-ce
-#     state: present
-
-# - name: Start Docker service
-#   systemd:
-#     name: docker
-#     state: started
-#     enabled: yes
-
-# - name: Install Ansible
-#   apt:
-#     name: ansible
-#     state: present
-
-# - name: Ensure Docker service is started and enabled
-#   ansible.builtin.service:
-#     name: docker
-#     state: started
-#     enabled: yes
-
-
-# - name: Check if Dockerfile is present
-#   ansible.builtin.stat:
-#     path: "{{ dockerfile_path }}/Dockerfile"
-#   register: dockerfile_stat
-
-# - name: Fail if Dockerfile is not present
-#   ansible.builtin.fail:
-#     msg: "Dockerfile not found in the specified path"
-#   when: not dockerfile_stat.stat.exists
-
-
-# - name: Build Docker image
-#   community.docker.docker_image:
-#     source: build
-#     build:
-#       path: "{{ dockerfile_path }}"
-#     name: "{{ docker_username }}/{{ image_name }}"
-#     tag: "{{ image_tag }}"
-#   when: dockerfile_stat.stat.exists
-
-# - name: Log in to Docker Hub
-#   community.docker.docker_login:
-#     username: "{{ docker_username }}"
-#     password: "{{ docker_password }}"
-#     reauthorize: yes
-#   register: login_result
-
-
-
-# - name: Push Docker image to Docker Hub
-#   community.docker.docker_image:
-#     name: "{{ docker_username }}/{{ image_name }}"
-#     tag: "{{ image_tag }}"
-#     push: yes
-#     source: local
-#   when: dockerfile_stat.stat.exists
-
-# - name: Ensure a Docker container is running
-#   docker_container:
-#     name: webapp419
-#     image: "{{ docker_username }}/{{ image_name }}"
-#     state: started
-#     ports:
-#       - "3000:3000"
-#     restart_policy: always
-
-- name: disable swap
+- name: k8s repository
   shell: |
-         sudo swapoff -a
-
-- name: enable net.bridge.bridge-nf-call-iptables
-  shell: |
-          cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-          overlay
-          br_netfilter
-          EOF
-- name: modprobe overlay
-  shell: |
-          sudo modprobe overlay
-
-- name: modprobe br_netfilter
-  shell: |
-          sudo modprobe br_netfilter
-
-- name: sysctl params required by setup, params persist across reboots
-  shell: |
-          cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-          net.bridge.bridge-nf-call-iptables  = 1
-          net.bridge.bridge-nf-call-ip6tables = 1
-          net.ipv4.ip_forward                 = 1
-          EOF
-
-- name:  Apply sysctl params without reboot
-  shell: |
-          sudo sysctl --system
-
-- name: very overlay and br_netfilter is running
-  shell: |
-          lsmod | grep br_netfilter
-          lsmod | grep overlay
-
-# - name: uninstall conflicting packages
-#   shell: | 
-#           for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
-
-- name: install docker repository
-  shell: |
-          sudo apt-get update
-          sudo mkdir -p /etc/apt/keyrings
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc
-          echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-- name: sudo apt-get update
-  shell: sudo apt-get update
-          
-
-- name: install containerd
-  shell: |
-          sudo apt-get install containerd.io
-
-- name: cgroup driver configuration
-  shell: |
-           containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' | sed 's/sandbox_image = "registry.k8s.io\/pause:3.6"/sandbox_image = "registry.k8s.io\/pause:3.9"/' | sudo tee /etc/containerd/config.toml
-- name: restart containerd
-  shell: sudo systemctl restart containerd
-
-- name: setup before kubelet install
-  shell: |
-          sudo apt-get update
           sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+          sudo mkdir -p -m 755 /etc/apt/keyrings
+          curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
-- name: continue kubelet setup
-  shell: sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor --yes -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-
-- name: continue kubelet setup 2
+- name: overwrite existing configuration
   shell: |
           echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-- name: update and held resources
+- name: Update the apt package index, install kubelet, kubeadm and kubectl, and pin their version
   shell: |
           sudo apt-get update
           sudo apt-get install -y kubelet kubeadm kubectl
           sudo apt-mark hold kubelet kubeadm kubectl
 
-- name: enable kubelet
+- name: Enable the kubelet service before running kubeadm
   shell: sudo systemctl enable --now kubelet
-# 
-
-  # end
-# - name: Add kubernetes key
-#  apt_key:
-#     keyserver: keyserver.ubuntu.com
-#     id: B53DC80D13EDEF05
-#     state: present
- 
-
-# # xenial is always used, because bionic repo doesn't exist yet
-# - name: Add kubernetes repo
-#   apt_repository:
-#     repo: deb http://mirror.reenigne.net/apt.kubernetes.io/ kubernetes-xenial main
-#     state: present
-#     filename: kubernetes
-#  #
-
-# # - name: Add Kubernetes apt-key
-# #   apt_key:
-# #     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-# #     state: present
-
-# # - name: Add Kubernetes apt repository
-# #   apt_repository:
-# #     repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-# #     state: present
-
-
-
-# - name: Install kubelet, kubeadm, kubectl
-#   apt:
-#     name:
-#       - kubelet
-#       - kubeadm
-#       - kubectl
-     
-#     state: present
-#     update_cache: yes
-
-# - name: Starting and Enabling the required services
-#   service:
-#    name: "{{ item }}"
-#    state: started
-#    enabled: yes
-#   with_items: "{{ services }}"
-
-# # - name: Allow Network Ports in Firewalld
-# #   firewalld:
-# #     port: "{{ item }}"
-# #     state: enabled
-# #     permanent: yes
-# #     immediate: yes
-# #   with_items: "{{ ports }}"
-
-# # - name: Enabling Bridge Firewall Rule
-# #   shell: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"

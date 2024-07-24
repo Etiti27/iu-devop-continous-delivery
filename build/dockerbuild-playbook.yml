@@ -15,19 +15,19 @@
     - k8s-master-setup
 
 
-- name: setup k8s master 
-  hosts: worker
-  tasks:
-  become: yes
-  roles:
-    - k8s-worker-setup
+# - name: setup k8s master 
+#   hosts: worker
+#   tasks:
+#   become: yes
+#   roles:
+#     - k8s-worker-setup
 
-- name: setup k8s master 
-  hosts: master
-  tasks:
-  become: yes
-  roles:
-    - deploy-k8s
+# - name: setup k8s master 
+#   hosts: master
+#   tasks:
+#   become: yes
+#   roles:
+#     - deploy-k8s
 
 
  
