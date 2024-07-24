@@ -31,5 +31,5 @@
     msg: "Cleaned Command: {{ join_command_cleaned }}"
 
 - name: Execute the join command
-  hell: "{{ join_command_cleaned }}"
+  shell: "{{ join_command_cleaned }}"
   when: join_command_cleaned != ""
