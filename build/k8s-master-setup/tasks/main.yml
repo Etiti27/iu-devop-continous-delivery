@@ -5,8 +5,11 @@
   shell: sudo kubeadm init
   register: output
 
-- name: Storing Logs and Generated token for future purpose.
-  local_action: copy content={{ output.stdout }} dest=join_token
+- name: Store logs and generated token for future purposes
+  local_action:
+    module: copy
+    content: "{{ output.stdout }}"
+    dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
 
 - name: Copying required files
   shell: |
