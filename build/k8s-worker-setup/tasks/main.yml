@@ -17,5 +17,5 @@
     state: file
 
 - name: Execute the shell script
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: /home/ubuntu/command.sh
