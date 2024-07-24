@@ -23,14 +23,23 @@
   command: sudo kubeadm init 
   register: kubeadm_init_output
 
-- name: Store kubeadm join command for worker nodes
-  copy:
+
+- name: Store logs and generated token
+  local_action:
+    module: ansible.builtin.copy
     content: "{{ kubeadm_init_output.stdout_lines | select('search', 'kubeadm join') | list | join(' ') }}"
-    dest: /home/ubuntu/kubeadm_join_command.sh
+    dest: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
+  become: false
+
+
+# - name: Store kubeadm join command for worker nodes
+#   copy:
+#     content: "{{ kubeadm_init_output.stdout_lines | select('search', 'kubeadm join') | list | join(' ') }}"
+#     dest: /home/ubuntu/kubeadm_join_command.sh
 
 - name: Ensure the kubeadm join script is executable
   file:
-    path: /home/ubuntu/kubeadm_join_command.sh
+    path: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
     mode: '0755'
     state: file
 
