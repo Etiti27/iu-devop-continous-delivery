@@ -1,5 +1,5 @@
 ---
 # tasks file for k8-worker-setup
 - name: Joining worker nodes with kubernetes master
-  shell: awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token
-  
+  shell: awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' join_token
+
