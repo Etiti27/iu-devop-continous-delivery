@@ -1,48 +1,17 @@
 ---
 #setup master node
 
-# - name: Initializing Kubernetes cluster
-#   shell: sudo kubeadm init
-#   register: output
-
-# - name: Store logs and generated token for future purposes
-#   local_action:
-#     module: copy
-#     content: "{{ output.stdout }}"
-#     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
-#   become: false
-
-# - name: Store logs and generated token
-#   local_action:
-#     module: ansible.builtin.copy
-#     content: "{{ output.stdout }}"
-#     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
-#   become: false
-
 - name: Initialize Kubernetes Master Node
   command: sudo kubeadm init 
   register: kubeadm_init_output
 
-
+# store output in the local directory
 - name: Store logs and generated token
   local_action:
     module: ansible.builtin.copy
     content: "{{ kubeadm_init_output.stdout}}"
-    dest: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
+    dest: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token
   become: false
-
-
-# - name: Store kubeadm join command for worker nodes
-#   copy:
-#     content: "{{ kubeadm_init_output.stdout_lines | select('search', 'kubeadm join') | list | join(' ') }}"
-#     dest: /home/ubuntu/kubeadm_join_command.sh
-
-# - name: Ensure the kubeadm join script is executable
-#   file:
-#     path: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
-#     mode: '0755'
-#     state: file
-
 
 - name: Copying required files
   shell: |
@@ -50,8 +19,14 @@
     sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+# network addon
 - name: Install Network Add-on
-  command: sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  command: curl https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml -O
+  become: true
+
+- name: apply network
+  command: kubectl apply -f calico.yaml
+  become: true
 
 
 

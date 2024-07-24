@@ -1,1 +1,0 @@
-kubeadm join 172.31.0.67:6443 --token gxuv2c.dm8dpgbt8dpuevgz \
