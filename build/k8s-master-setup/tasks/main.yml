@@ -1,9 +1,9 @@
 ---
 #setup master node
 
-- name: Initializing Kubernetes cluster
-  shell: sudo kubeadm init
-  register: output
+# - name: Initializing Kubernetes cluster
+#   shell: sudo kubeadm init
+#   register: output
 
 # - name: Store logs and generated token for future purposes
 #   local_action:
