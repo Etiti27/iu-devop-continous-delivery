@@ -23,7 +23,7 @@
 
 - name: Remove extra spaces from command
   set_fact:
-  join_command_cleaned: "{{ join_command_output.stdout | replace(' \\', '') }}"
+    join_command_cleaned: "{{ join_command_output.stdout | replace(' \\', '') }}"
 
 - name: Execute join command
   shell: "{{ join_command_cleaned }}"
