@@ -19,13 +19,17 @@
 
 - name: Extract join command from file
   command: |
-              awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token
+            awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token
   register: join_command_output
 
-- name: Remove trailing spaces from command
+- name: Clean the join command
   set_fact:
-    join_command_cleaned: "{{ join_command_output.stdout | regex_replace('\\s+$', '') }}"
+    join_command_cleaned: "{{ join_command_output.stdout | regex_replace('\\s+$', '') | regex_replace('\\s+\\\\\\s+', ' ') }}"
 
-- name: Execute join command
-  shell: "{{ join_command_cleaned }}"
+- name: Debug the cleaned command
+  debug:
+    msg: "Cleaned Command: {{ join_command_cleaned }}"
+
+- name: Execute the join command
+  hell: "{{ join_command_cleaned }}"
   when: join_command_cleaned != ""
