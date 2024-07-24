@@ -11,4 +11,4 @@
 
 
 - name: Join the worker node to cluster
-  command: sh awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token
+  command: sh /home/ubuntu/command.sh
