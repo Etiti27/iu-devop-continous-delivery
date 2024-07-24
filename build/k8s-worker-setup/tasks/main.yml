@@ -10,12 +10,5 @@
   shell: awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token > /home/ubuntu/command.sh
 
 
-- name: Ensure the shell script has execute permissions
-  ansible.builtin.file:
-    path: /home/ubuntu/command.sh
-    mode: '0755'
-    state: file
-
-- name: Execute the shell script
-  ansible.builtin.command:
-    cmd: /home/ubuntu/command.sh
+- name: Join the worker node to cluster
+  command: sh awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token
