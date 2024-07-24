@@ -9,3 +9,7 @@
 - name: Joining worker nodes with kubernetes master
   shell: awk '/kubeadm join/{flag=1} flag{printf "%s", $0; if (/\\$/) printf " "; else {printf "\n"; flag=0}}' /home/ubuntu/join_token > /home/ubuntu/command.sh
 
+- name: execute join file
+  shell: |
+          chmod +x /home/ubuntu/command.sh
+          sh '/home/ubuntu/command.sh'
