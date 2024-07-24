@@ -34,15 +34,15 @@
 [kubelet-start] Starting the kubelet
 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests"
 [kubelet-check] Waiting for a healthy kubelet. This can take up to 4m0s
-[kubelet-check] The kubelet is healthy after 1.002305219s
+[kubelet-check] The kubelet is healthy after 1.001042426s
 [api-check] Waiting for a healthy API server. This can take up to 4m0s
-[api-check] The API server is healthy after 5.001442431s
+[api-check] The API server is healthy after 5.503063551s
 [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
 [kubelet] Creating a ConfigMap "kubelet-config" in namespace kube-system with the configuration for the kubelets in the cluster
 [upload-certs] Skipping phase. Please see --upload-certs
 [mark-control-plane] Marking the node master as control-plane by adding the labels: [node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
 [mark-control-plane] Marking the node master as control-plane by adding the taints [node-role.kubernetes.io/control-plane:NoSchedule]
-[bootstrap-token] Using token: k7j1cj.devbwwkadxp1bwob
+[bootstrap-token] Using token: mys74l.pt25wnhmw1t081nh
 [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
 [bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to get nodes
 [bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
@@ -71,5 +71,5 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 172.31.0.67:6443 --token k7j1cj.devbwwkadxp1bwob \
-	--discovery-token-ca-cert-hash sha256:d45bbf8abb10904ccdf8d08b6e27adbb7f4d8597ddb595e0559fe05a6e623133 
+kubeadm join 172.31.0.67:6443 --token mys74l.pt25wnhmw1t081nh \
+	--discovery-token-ca-cert-hash sha256:614392f359ff64bafbbf6ace17024405b626910922b3d53e3bab1e0507ab81c3 

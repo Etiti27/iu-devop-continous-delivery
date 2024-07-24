@@ -1,20 +1,10 @@
 ---
 # tasks file for k8-worker-setup
 
-# - name: Copy a file to a remote server
-#   copy:
-#     src: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
-#     dest: /home/ubuntu/
-
-# - name: Ensure the kubeadm join script is executable
-#   file:
-#     path: /home/ubuntu/join_token_cghatgpt.sh
-#     mode: '0755'
-#     state: file
-
-# - name: Execute the kubeadm join command
-#   shell: |
-#         /home/ubuntu/join_token_cghatgpt.sh
+- name: Copy a file to a remote server
+  copy:
+    src: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token
+    dest: /home/ubuntu/
 
 
 - name: Extract join command from file
@@ -33,4 +23,4 @@
 - name: Execute the join command
   shell: "{{ join_command_cleaned }}"
   when: join_command_cleaned != ""
-  # 
+  

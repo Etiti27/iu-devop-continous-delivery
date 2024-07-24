@@ -14,12 +14,12 @@
     - k8s-master-setup
 
 
-# - name: setup k8s worker
-#   hosts: worker
-#   tasks:
-#   become: yes
-#   roles:
-#     - k8s-worker-setup
+- name: setup k8s worker
+  hosts: worker
+  tasks:
+  become: yes
+  roles:
+    - k8s-worker-setup
 
 # - name: setup k8s master 
 #   hosts: master
