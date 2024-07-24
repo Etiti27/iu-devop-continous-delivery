@@ -1,4 +1,35 @@
 ---
+# clean Kubernetes
+#  Reset and Clean Kubernetes Node
+  
+- name: Reset Kubernetes with kubeadm
+  shell: kubeadm reset --force
+  ignore_errors: true
+
+- name: Remove Kubernetes directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/kubernetes
+    - /var/lib/etcd
+    - /var/lib/kubelet
+    - /var/lib/cni
+    - /var/run/kubernetes
+
+- name: Stop and disable kubelet service
+  systemd:
+    name: kubelet
+    state: stopped
+    enabled: no
+  ignore_errors: true
+
+- name: Kill kube-apiserver process
+  shell: |
+        pkill kube-apiserver || true
+  ignore_errors: true  # Use if the process might not be running
+
+# update packages
 - name: update packages
   command: sudo apt-get update
 
