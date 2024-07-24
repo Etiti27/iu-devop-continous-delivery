@@ -37,11 +37,11 @@
 #     content: "{{ kubeadm_init_output.stdout_lines | select('search', 'kubeadm join') | list | join(' ') }}"
 #     dest: /home/ubuntu/kubeadm_join_command.sh
 
-- name: Ensure the kubeadm join script is executable
-  file:
-    path: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
-    mode: '0755'
-    state: file
+# - name: Ensure the kubeadm join script is executable
+#   file:
+#     path: /Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token_cghatgpt.sh
+#     mode: '0755'
+#     state: file
 
 
 - name: Copying required files
