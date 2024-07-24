@@ -5,9 +5,16 @@
   shell: sudo kubeadm init
   register: output
 
-- name: Store logs and generated token for future purposes
+# - name: Store logs and generated token for future purposes
+#   local_action:
+#     module: copy
+#     content: "{{ output.stdout }}"
+#     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
+#   become: false
+
+- name: Store logs and generated token
   local_action:
-    module: copy
+    module: ansible.builtin.copy
     content: "{{ output.stdout }}"
     dest: "/Users/obinna/Desktop/IU/DEVOP/build/k8s-worker-setup/tasks/join_token"
   become: false
