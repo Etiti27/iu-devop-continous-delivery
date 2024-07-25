@@ -3,3 +3,7 @@
 .vscode/
 .env
 ~$DEVOP.docx
+
+build/k8s-worker-setup/tasks/join_token
+
+
