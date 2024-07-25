@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{ image_name }}-deployment"
+  namespace: "{{ namespace | default('default') }}" 
   labels:
     app: "{{ image_name }}"
 spec:
@@ -34,6 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: "{{ image_name }}-service"
+  namespace: "{{ namespace | default('default') }}" 
 spec:
   type: LoadBalancer
   selector:
