@@ -4,7 +4,11 @@
 #   k8s:
 #     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml') }}"
 #     state: present
+# - name: Apply Nginx Deployment and Service
+#   kubernetes.core.k8s:
+#     state: present
+#     src: "../templates/deploy_webapp.yaml"
 - name: Apply Nginx Deployment and Service
   kubernetes.core.k8s:
     state: present
-    src: "../templates/deploy_webapp.yaml"
+    definition: "{{ lookup('file', '/testing/deployment.yml')}}"
