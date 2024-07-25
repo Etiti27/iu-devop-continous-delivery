@@ -33,10 +33,11 @@
 - name: update packages
   command: sudo apt-get update
 
+# copy webapp to remote server
 - name: Synchronize a directory to the remote server
   synchronize:
-    src: /Users/obinna/Desktop/IU/DEVOP/webapp
-    dest: /home/ubuntu
+    src: "{{ webapp_local_path }}"
+    dest: "{{ webapp_remote_path }}"
     delete: yes  # Optional: delete files in the destination that are not in the source
 
 - name: Install Ansible
@@ -83,14 +84,14 @@
     source: local
   when: dockerfile_stat.stat.exists
 
-- name: Ensure a Docker container is running
-  docker_container:
-    name: webapp419
-    image: "{{ docker_username }}/{{ image_name }}"
-    state: started
-    ports:
-      - "3000:3000"
-    restart_policy: always
+# - name: Ensure a Docker container is running
+#   docker_container:
+#     name: webapp419
+#     image: "{{ docker_username }}/{{ image_name }}"
+#     state: started
+#     ports:
+#       - "3000:3000"
+#     restart_policy: always
 
 - name: k8s repository
   shell: |

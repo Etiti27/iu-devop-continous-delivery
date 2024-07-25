@@ -1,23 +1,10 @@
 ---
 # vars file for DockerBuild
-dockerfile_path: /home/ubuntu/webapp
-image_name: mychoice149
-image_tag: latest
-docker_password: J@nineIbe
-docker_username: obinna27
-packages:
-- docker
-- kubeadm
-- kubectl
-
-services:
-- docker
-- kubelet
 
 
-ports:
-- "6443/tcp"
-- "10250/tcp"
 
-token_file: join_token
-# 
+
+
+
+
+

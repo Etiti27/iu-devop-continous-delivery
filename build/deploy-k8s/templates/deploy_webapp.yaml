@@ -1,0 +1,53 @@
+---
+apiVersion: "{{ image_name }}/v1"
+kind: Deployment
+metadata:
+  name: "{{ image_name }}-deployment"
+  labels:
+    app: "{{ image_name }}"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "{{ image_name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ image_name }}"
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: "{{ image_name }}"
+        image: "{{ docker_username }}/{{ image_name }}:{{ image_tag }}"
+        ports:
+        - containerPort: "{{ container_port }}"
+        resources:
+          requests:
+            memory: "512Mi"   # Minimum amount of memory that Kubernetes will allocate to the container
+            cpu: "250m"       # Minimum amount of CPU that Kubernetes will allocate to the container
+          limits:
+            memory: "1Gi"     # Maximum amount of memory that the container can use
+            cpu: "500m" 
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ image_name }}-service"
+spec:
+  type: LoadBalancer
+  selector:
+    app: "{{ image_name }}"
+  ports:
+    - protocol: TCP
+      port: "{{ container_port }}"
+      targetPort: "{{ container_port }}"
+
+
+
+
+
+
+
+

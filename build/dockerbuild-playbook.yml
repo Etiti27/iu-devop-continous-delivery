@@ -1,32 +1,35 @@
 ---
 - name: Build Docker Image and setup k8s in all remote host
   hosts: all
-  tasks:
+  vars_files:
+    - env_files.yaml
   become: yes
   roles:
     - setup-all-nodes
 
 - name: setup k8s master 
   hosts: master
-  tasks:
+  vars_files:
+    - env_files.yaml
   # become: yes
   roles:
     - k8s-master-setup
 
-
 - name: setup k8s worker
   hosts: worker
-  tasks:
+  vars_files:
+    - env_files.yaml
   become: yes
   roles:
     - k8s-worker-setup
 
-# - name: setup k8s master 
-#   hosts: master
-#   tasks:
-#   become: yes
-#   roles:
-#     - deploy-k8s
+- name: setup k8s master 
+  hosts: master
+  vars_files:
+    - env_files.yaml
+  become: yes
+  roles:
+    - deploy-k8s
 
 
  
