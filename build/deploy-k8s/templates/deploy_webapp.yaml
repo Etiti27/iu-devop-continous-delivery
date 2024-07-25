@@ -23,7 +23,7 @@ spec:
           effect: "NoSchedule"
       containers:
       - name: "mywebapp"
-        image: "obinna27/mywebapp/latest"
+        image: "obinna27/mywebapp:latest"
         ports:
         - containerPort: 3000
         resources:
