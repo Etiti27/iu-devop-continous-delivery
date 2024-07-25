@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: "mywebapp"
-        image: "{{ docker_username }}/{{ image_name }}/{{ image_tag }}"
+        image: "obinna27/mywebapp/latest"
         ports:
         - containerPort: 3000
         resources:
