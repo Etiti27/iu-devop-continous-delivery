@@ -4,19 +4,10 @@
 #   k8s:
 #     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml') }}"
 #     state: present
-# - name: Apply Nginx Deployment and Service
-#   kubernetes.core.k8s:
-#     state: present
-#     src: "../templates/deploy_webapp.yaml"
-# - name: Apply Nginx Deployment and Service
-#   kubernetes.core.k8s:
-#     state: present
-#     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
+#
+- name: Apply Nginx Deployment and Service
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '../templates/deploy_webapp.yaml.j2')}}"
 
-# - name: Copy deployment file to remote location
-#   copy:
-#     src: /Users/obinna/Desktop/IU/DEVOP/build/deploy-k8s/templates/deploy_webapp.yaml
-#     dest: /home/ubuntu/
-
-- name: Apply Kubernetes Deployment
-  command: ansible-playbook /Users/obinna/Desktop/IU/DEVOP/build/deploy-k8s/templates/deploy_webapp.yaml
+#
