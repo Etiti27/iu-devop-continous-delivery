@@ -1,5 +1,5 @@
 ---
-apiVersion: "{{ image_name }}/v1"
+apiVersion: app/v1
 kind: Deployment
 metadata:
   name: "{{ image_name }}-deployment"
