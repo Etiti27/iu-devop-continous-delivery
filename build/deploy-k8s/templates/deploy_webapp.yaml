@@ -2,24 +2,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ image_name }}-deployment"
+  name: "mywebapp-deployment"
   namespace: "default" 
   labels:
-    app: "{{ image_name }}"
+    app: "mywebapp"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "{{ image_name }}"
+      app: "mywebapp"
   template:
     metadata:
       labels:
-        app: "{{ image_name }}"
+        app: "mywebapp"
     spec:
       automountServiceAccountToken: false
       containers:
-      - name: "{{ image_name }}"
-        image: "{{ docker_username }}/{{ image_name }}:{{ image_tag }}"
+      - name: "mywebapp"
+        image: "mywebapp:latest"
         ports:
         - containerPort: 3000
         resources:
@@ -34,12 +34,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ image_name }}-service"
+  name: "mywebapp-service"
   namespace: "default" 
 spec:
   type: LoadBalancer
   selector:
-    app: "{{ image_name }}"
+    app: "mywebapp"
   ports:
     - protocol: TCP
       port: 3000
