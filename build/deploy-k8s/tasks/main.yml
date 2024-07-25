@@ -13,5 +13,5 @@
 #     state: present
 #     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
 
-- name: deploying Deployment
-  command: kubectl -f "../templates/deploy_webapp.yaml"
+- name: Apply Kubernetes Deployment
+  command: kubectl apply -f ../templates/deploy_webapp.yaml
