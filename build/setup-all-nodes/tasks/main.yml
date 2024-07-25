@@ -69,6 +69,7 @@
   ansible.builtin.stat:
     path: "{{ dockerfile_path }}/Dockerfile"
   register: dockerfile_stat
+  # 
 
 - name: Fail if Dockerfile is not present
   ansible.builtin.fail:
