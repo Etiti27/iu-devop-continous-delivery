@@ -58,10 +58,21 @@
     state: present
   when: ansible_os_family == "Debian"
 
-- name: Install the Kubernetes Python client
-  ansible.builtin.pip:
-    name: kubernetes
+- name: Ensure Python 3 and venv are installed
+  apt:
+    name:
+      - python3
+      - python3-venv
+      - python3-pip
     state: present
+
+- name: Create a Python virtual environment
+  command: python3 -m venv /opt/myenv
+
+- name: Install Kubernetes Python client in the virtual environment
+  pip:
+    name: kubernetes
+    virtualenv: /opt/myenv
 
 - name: Check if Dockerfile is present
   ansible.builtin.stat:
