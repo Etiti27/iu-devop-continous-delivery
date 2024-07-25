@@ -8,7 +8,10 @@
 #   kubernetes.core.k8s:
 #     state: present
 #     src: "../templates/deploy_webapp.yaml"
-- name: Apply Nginx Deployment and Service
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
+# - name: Apply Nginx Deployment and Service
+#   kubernetes.core.k8s:
+#     state: present
+#     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
+
+- name: deploying Deployment
+  command: kubectl -f "../templates/deploy_webapp.yaml"
