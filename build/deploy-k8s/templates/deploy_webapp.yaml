@@ -17,6 +17,10 @@ spec:
         app: "mywebapp"
     spec:
       automountServiceAccountToken: false
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
       containers:
       - name: "mywebapp"
         image: "obinna27/mywebapp/latest"
