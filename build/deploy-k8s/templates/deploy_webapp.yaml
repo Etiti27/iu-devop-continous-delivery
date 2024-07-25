@@ -1,5 +1,5 @@
 ---
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{ image_name }}-deployment"
@@ -20,15 +20,14 @@ spec:
       - name: "{{ image_name }}"
         image: "{{ docker_username }}/{{ image_name }}:{{ image_tag }}"
         ports:
-        - containerPort: "{{ container_port }}"
+        - containerPort: {{ container_port }}
         resources:
           requests:
             memory: "512Mi"   # Minimum amount of memory that Kubernetes will allocate to the container
             cpu: "250m"       # Minimum amount of CPU that Kubernetes will allocate to the container
           limits:
             memory: "1Gi"     # Maximum amount of memory that the container can use
-            cpu: "500m" 
-
+            cpu: "500m"
 
 ---
 apiVersion: v1
@@ -41,13 +40,5 @@ spec:
     app: "{{ image_name }}"
   ports:
     - protocol: TCP
-      port: "{{ container_port }}"
-      targetPort: "{{ container_port }}"
-
-
-
-
-
-
-
-
+      port: {{ container_port }}
+      targetPort: {{ container_port }}
