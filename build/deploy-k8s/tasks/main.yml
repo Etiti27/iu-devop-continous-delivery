@@ -10,5 +10,6 @@
     kubeconfig: /home/ubuntu/.kube/config
     state: present
     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
+    namespace: "default"
 
 #
