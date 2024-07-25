@@ -14,4 +14,4 @@
 #     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
 
 - name: Apply Kubernetes Deployment
-  command: kubectl apply -f ../templates/deploy_webapp.yaml
+  command: kubectl apply -f /Users/obinna/Desktop/IU/DEVOP/build/deploy-k8s/templates/deploy_webapp.yaml
