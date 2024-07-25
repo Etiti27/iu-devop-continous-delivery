@@ -20,7 +20,7 @@ spec:
       - name: "{{ image_name }}"
         image: "{{ docker_username }}/{{ image_name }}:{{ image_tag }}"
         ports:
-        - containerPort: {{ container_port }}
+        - containerPort: 3000
         resources:
           requests:
             memory: "512Mi"   # Minimum amount of memory that Kubernetes will allocate to the container
@@ -40,5 +40,5 @@ spec:
     app: "{{ image_name }}"
   ports:
     - protocol: TCP
-      port: {{ container_port }}
-      targetPort: {{ container_port }}
+      port: 3000
+      targetPort: 3000
