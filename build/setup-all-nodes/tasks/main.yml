@@ -65,7 +65,7 @@
       - python3-venv
       - python3-pip
     state: present
-
+# 
 - name: Create a Python virtual environment
   command: python3 -m venv /opt/myenv
 
