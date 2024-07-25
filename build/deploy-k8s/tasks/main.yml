@@ -4,4 +4,3 @@
   k8s:
     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml') }}"
     state: present
-# 
