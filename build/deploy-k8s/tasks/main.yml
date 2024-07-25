@@ -11,4 +11,4 @@
 - name: Apply Nginx Deployment and Service
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('file', '/testing/deployment.yml')}}"
+    definition: "{{ lookup('file', '../templates/deploy_webapp.yaml')}}"
