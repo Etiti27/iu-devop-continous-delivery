@@ -50,6 +50,19 @@
     name: docker.io
     state: present
 
+- name: Install Python 3 and Pip (Debian/Ubuntu)
+  ansible.builtin.apt:
+    name:
+      - python3
+      - python3-pip
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install the Kubernetes Python client
+  ansible.builtin.pip:
+    name: kubernetes
+    state: present
+
 - name: Check if Dockerfile is present
   ansible.builtin.stat:
     path: "{{ dockerfile_path }}/Dockerfile"
