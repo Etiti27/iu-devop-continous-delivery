@@ -33,7 +33,7 @@ pipeline {
             steps {
                 // Deploy the application
                echo "Deploying"
-                sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml --vault-password-file /Users/obinna/Desktop/IU/DEVOP/webapp/vault_password.txt'
+                sh 'ansible-playbook -i build/inventory.ini build/dockerbuild-playbook.yml --vault-password-file /Users/obinna/Desktop/IU/DEVOP/webapp/vault_password.txt  -vvv'
 
             }
         }

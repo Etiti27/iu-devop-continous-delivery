@@ -7,6 +7,7 @@
 #
 - name: Apply Nginx Deployment and Service
   kubernetes.core.k8s:
+    kubeconfig: /home/ubuntu/.kube/config
     state: present
     definition: "{{ lookup('file', '../templates/deploy_webapp.yaml.j2')}}"
 
